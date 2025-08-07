@@ -384,22 +384,89 @@ interface ErrorResponse {
 - Asynchronous processing for fraud detection
 - Load balancing for high availability
 
+## Infrastructure and Deployment
+
+### Docker Containerization
+The system will use Docker containers for consistent development and deployment environments.
+
+**Docker Services:**
+- PostgreSQL 15 for main database
+- Redis 7 for caching and session storage
+- FastAPI backend service
+- React Native Web frontend service
+
+**File Structure:**
+```
+project/
+├── docker-compose.yml          # Main orchestration file
+├── .env                        # Environment variables
+├── backend/
+│   ├── Dockerfile             # Backend container definition
+│   ├── init.sql              # Database initialization
+│   └── ...
+├── mobile/
+│   ├── Dockerfile.web        # Web frontend container
+│   └── ...
+└── README.md
+```
+
+### Database Initialization
+```sql
+-- backend/init.sql
+-- Create extensions
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+-- Create indexes for performance
+CREATE INDEX idx_users_email ON users(email);
+CREATE INDEX idx_users_role ON users(role);
+CREATE INDEX idx_installment_requests_customer ON installment_requests(customer_id);
+CREATE INDEX idx_installment_requests_business ON installment_requests(business_id);
+CREATE INDEX idx_installment_requests_status ON installment_requests(status);
+CREATE INDEX idx_installment_plans_customer ON installment_plans(customer_id);
+CREATE INDEX idx_fraud_alerts_customer ON fraud_alerts(customer_id);
+CREATE INDEX idx_fraud_patterns_customer ON fraud_patterns(customer_id);
+```
+
+### Environment Configuration
+```bash
+# .env file
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/installment_fraud_db
+REDIS_URL=redis://localhost:6379
+JWT_SECRET=your-super-secret-jwt-key
+JWT_EXPIRE_MINUTES=30
+REFRESH_TOKEN_EXPIRE_DAYS=7
+CORS_ORIGINS=["http://localhost:3000", "http://localhost:19006"]
+FRAUD_DETECTION_THRESHOLD=0.7
+MAX_ACTIVE_INSTALLMENTS=5
+```
+
 ## Security Measures
 
 ### Data Protection
-- Encrypt sensitive data at rest
+- Encrypt sensitive data at rest using PostgreSQL encryption
 - Use HTTPS for all communications
 - Implement field-level encryption for PII
 - Regular security audits and penetration testing
+- Database backups with encryption
 
 ### Access Control
-- JWT-based authentication
-- Role-based authorization
-- API rate limiting
+- JWT-based authentication with Redis session storage
+- Role-based authorization middleware
+- API rate limiting using Redis
 - Session management and timeout
+- CORS configuration for web security
 
 ### Fraud Prevention
 - Real-time monitoring and alerting
 - Anomaly detection algorithms
 - Machine learning for pattern recognition
 - Integration with external fraud databases
+- Automated fraud scoring system
+
+### Container Security
+- Use official, minimal base images
+- Regular security updates for containers
+- Non-root user execution in containers
+- Secret management through environment variables
+- Network isolation between services
