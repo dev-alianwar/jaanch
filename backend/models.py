@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Decimal, Boolean, DateTime, Date, Text, ForeignKey, Enum as SQLEnum, JSON
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Date, Text, ForeignKey, Enum as SQLEnum, Numeric
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
@@ -103,9 +103,9 @@ class InstallmentRequest(Base):
     business_id = Column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
     product_name = Column(String(255), nullable=False)
     product_description = Column(Text)
-    product_value = Column(Decimal(12, 2), nullable=False)
+    product_value = Column(Numeric(12, 2), nullable=False)
     installment_months = Column(Integer, nullable=False)
-    monthly_amount = Column(Decimal(12, 2), nullable=False)
+    monthly_amount = Column(Numeric(12, 2), nullable=False)
     status = Column(SQLEnum(RequestStatus), default=RequestStatus.PENDING, index=True)
     business_notes = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
@@ -126,9 +126,9 @@ class InstallmentPlan(Base):
     request_id = Column(UUID(as_uuid=True), ForeignKey("installment_requests.id", ondelete="CASCADE"), nullable=False)
     customer_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     business_id = Column(UUID(as_uuid=True), ForeignKey("businesses.id", ondelete="CASCADE"), nullable=False, index=True)
-    total_amount = Column(Decimal(12, 2), nullable=False)
-    paid_amount = Column(Decimal(12, 2), default=0)
-    remaining_amount = Column(Decimal(12, 2), nullable=False)
+    total_amount = Column(Numeric(12, 2), nullable=False)
+    paid_amount = Column(Numeric(12, 2), default=0)
+    remaining_amount = Column(Numeric(12, 2), nullable=False)
     total_installments = Column(Integer, nullable=False)
     paid_installments = Column(Integer, default=0)
     start_date = Column(Date, nullable=False, index=True)
@@ -150,7 +150,7 @@ class Payment(Base):
 
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     plan_id = Column(UUID(as_uuid=True), ForeignKey("installment_plans.id", ondelete="CASCADE"), nullable=False, index=True)
-    amount = Column(Decimal(12, 2), nullable=False)
+    amount = Column(Numeric(12, 2), nullable=False)
     due_date = Column(Date, nullable=False, index=True)
     paid_date = Column(Date)
     status = Column(SQLEnum(PaymentStatus), default=PaymentStatus.PENDING, index=True)
@@ -171,7 +171,7 @@ class FraudAlert(Base):
     customer_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     alert_type = Column(SQLEnum(AlertType), nullable=False, index=True)
     description = Column(Text, nullable=False)
-    metadata = Column(JSONB)
+    alert_metadata = Column(JSONB)
     severity = Column(SQLEnum(AlertSeverity), nullable=False)
     status = Column(SQLEnum(AlertStatus), default=AlertStatus.ACTIVE, index=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
@@ -190,7 +190,7 @@ class FraudPattern(Base):
     customer_id = Column(UUID(as_uuid=True), ForeignKey("users.id", ondelete="CASCADE"), nullable=False, index=True)
     pattern_type = Column(String(100), nullable=False, index=True)
     pattern_data = Column(JSONB, nullable=False)
-    risk_score = Column(Decimal(3, 2), nullable=False, index=True)
+    risk_score = Column(Numeric(3, 2), nullable=False, index=True)
     detected_at = Column(DateTime(timezone=True), server_default=func.now())
 
     # Relationships
