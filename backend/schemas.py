@@ -229,6 +229,33 @@ class ValidationError(BaseModel):
     field: str
     message: str
 
+# User management schemas
+class UserUpdate(BaseModel):
+    first_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    last_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    phone: Optional[str] = Field(None, max_length=20)
+    is_active: Optional[bool] = None
+    role: Optional[UserRole] = None
+
+class ProfileUpdate(BaseModel):
+    first_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    last_name: Optional[str] = Field(None, min_length=1, max_length=100)
+    phone: Optional[str] = Field(None, max_length=20)
+
+# Statistics schemas
+class UserStats(BaseModel):
+    total: int
+    active: int
+    by_role: Dict[str, Dict[str, int]]
+
+class BusinessStats(BaseModel):
+    total: int
+    verified: int
+
+class SystemOverview(BaseModel):
+    users: UserStats
+    businesses: BusinessStats
+
 # Pagination schemas
 class PaginationParams(BaseModel):
     page: int = Field(1, ge=1)
