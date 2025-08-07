@@ -86,10 +86,18 @@ class InstallmentRequestCreate(BaseModel):
     product_value: Decimal = Field(..., gt=0, decimal_places=2)
     installment_months: int = Field(..., gt=0, le=60)
     
-    @validator('monthly_amount', pre=True, always=True)
-    def calculate_monthly_amount(cls, v, values):
-        if 'product_value' in values and 'installment_months' in values:
-            return values['product_value'] / values['installment_months']
+    @validator('product_name')
+    def validate_product_name(cls, v):
+        if not v or len(v.strip()) < 1:
+            raise ValueError('Product name is required')
+        return v.strip()
+    
+    @validator('product_value')
+    def validate_product_value(cls, v):
+        if v <= 0:
+            raise ValueError('Product value must be greater than 0')
+        if v > 1000000:  # 1 million limit
+            raise ValueError('Product value exceeds maximum limit')
         return v
 
 class InstallmentRequestUpdate(BaseModel):
@@ -181,6 +189,22 @@ class FraudPatternResponse(BaseSchema):
     risk_score: Decimal
     detected_at: datetime
     customer: UserResponse
+
+# Customer eligibility schemas
+class CustomerEligibility(BaseModel):
+    eligible: bool
+    active_requests: int
+    recent_requests: int
+    total_debt: float
+    has_pending_with_business: bool
+    limits: Dict[str, Any]
+
+class RequestStatistics(BaseModel):
+    total_requests: int
+    pending_requests: int
+    approved_requests: int
+    rejected_requests: int
+    total_value: float
 
 # Customer History schemas
 class CustomerInstallmentHistory(BaseModel):
