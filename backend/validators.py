@@ -144,6 +144,71 @@ class BusinessValidators:
         
         return sanitized.strip()
 
+class InstallmentValidators:
+    """Validators specific to installment operations"""
+    
+    @staticmethod
+    def validate_product_name(product_name: str) -> str:
+        """Validate product name"""
+        if not product_name or len(product_name.strip()) < 1:
+            raise ValueError("Product name is required")
+        
+        if len(product_name) > 255:
+            raise ValueError("Product name must be less than 255 characters")
+        
+        # Check for potentially harmful characters
+        if re.search(r'[<>"\']', product_name):
+            raise ValueError("Product name contains invalid characters")
+        
+        return product_name.strip()
+    
+    @staticmethod
+    def validate_product_value(product_value: float) -> float:
+        """Validate product value"""
+        if product_value <= 0:
+            raise ValueError("Product value must be greater than 0")
+        
+        if product_value > 1000000:  # 1 million limit
+            raise ValueError("Product value exceeds maximum limit of 1,000,000")
+        
+        # Check for reasonable decimal places
+        if len(str(product_value).split('.')[-1]) > 2:
+            raise ValueError("Product value can have at most 2 decimal places")
+        
+        return round(product_value, 2)
+    
+    @staticmethod
+    def validate_installment_months(months: int) -> int:
+        """Validate installment months"""
+        if months < 1:
+            raise ValueError("Installment months must be at least 1")
+        
+        if months > 60:
+            raise ValueError("Installment months cannot exceed 60")
+        
+        return months
+    
+    @staticmethod
+    def validate_monthly_payment_ratio(product_value: float, months: int) -> bool:
+        """Validate that monthly payment is reasonable"""
+        monthly_amount = product_value / months
+        
+        # Minimum monthly payment should be at least $10
+        if monthly_amount < 10:
+            raise ValueError("Monthly payment amount is too low (minimum $10)")
+        
+        return True
+    
+    @staticmethod
+    def check_request_frequency(customer_id: str, recent_count: int) -> bool:
+        """Check if customer is making too many requests"""
+        max_requests_per_day = 5
+        
+        if recent_count >= max_requests_per_day:
+            raise ValueError(f"Too many requests today. Maximum {max_requests_per_day} requests per day allowed")
+        
+        return True
+
 class SecurityValidators:
     """Security-related validators"""
     

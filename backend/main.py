@@ -12,6 +12,7 @@ from database import create_tables, check_database_connection
 from database_utils import init_database
 from auth_routes import router as auth_router
 from user_routes import router as user_router
+from installment_routes import router as installment_router
 from models import UserRole
 
 # Configure logging
@@ -70,6 +71,7 @@ app.add_middleware(
 # Include routers
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(installment_router)
 
 # Root endpoints
 @app.get("/")
