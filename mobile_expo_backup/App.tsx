@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StatusBar } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Import screens
 import LoginScreen from './src/screens/LoginScreen';
@@ -57,7 +58,7 @@ function AppNavigator() {
 export default function App() {
   return (
     <AuthProvider>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar style="auto" />
       <AppNavigator />
     </AuthProvider>
   );
