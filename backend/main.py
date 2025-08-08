@@ -13,6 +13,9 @@ from database_utils import init_database
 from auth_routes import router as auth_router
 from user_routes import router as user_router
 from installment_routes import router as installment_router
+from approval_routes import router as approval_router
+from history_routes import router as history_router
+from fraud_routes import router as fraud_router
 from models import UserRole
 
 # Configure logging
@@ -72,6 +75,9 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(installment_router)
+app.include_router(approval_router)
+app.include_router(history_router)
+app.include_router(fraud_router)
 
 # Root endpoints
 @app.get("/")
