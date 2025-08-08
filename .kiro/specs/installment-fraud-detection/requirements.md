@@ -93,14 +93,29 @@ This system is designed to track installment purchases across multiple businesse
 4. WHEN accessing customer data THEN the system SHALL log all access attempts for audit purposes
 5. IF unauthorized access is attempted THEN the system SHALL block access and alert administrators
 
-### Requirement 8: Mobile and Web Accessibility
+### Requirement 8: Next.js Web Platform and Mobile Accessibility
 
-**User Story:** As a user, I want to access the system from both mobile devices and web browsers so that I can manage installments conveniently.
+**User Story:** As a user, I want to access the system through a comprehensive web platform that provides product information, app downloads, and full web application functionality, as well as native mobile apps.
 
 #### Acceptance Criteria
 
-1. WHEN accessing from mobile devices THEN the system SHALL provide responsive design optimized for mobile screens
-2. WHEN using web browsers THEN the system SHALL provide full functionality with desktop-optimized interface
-3. WHEN switching between devices THEN the system SHALL maintain session continuity and data synchronization
-4. WHEN using touch interfaces THEN the system SHALL provide appropriate touch-friendly controls
-5. IF network connectivity is poor THEN the system SHALL provide offline capabilities for viewing existing data
+1. WHEN visiting the main website THEN the system SHALL provide a landing page explaining the installment fraud detection product and its benefits
+2. WHEN users want mobile apps THEN the system SHALL provide download links for Android APK and iOS app store links
+3. WHEN accessing the web application THEN the system SHALL provide full functionality equivalent to mobile apps with desktop-optimized interface
+4. WHEN using the web application THEN the system SHALL support all user roles (customer, business, superadmin) with appropriate dashboards
+5. WHEN switching between web and mobile THEN the system SHALL maintain session continuity and data synchronization
+6. WHEN using touch interfaces THEN the system SHALL provide appropriate touch-friendly controls
+7. IF network connectivity is poor THEN the system SHALL provide offline capabilities for viewing existing data
+8. WHEN accessing from mobile devices THEN the native React Native app SHALL provide optimized mobile experience
+
+### Requirement 9: Pure React Native Implementation
+
+**User Story:** As a developer, I want the mobile app to use pure React Native without Expo dependencies so that I have full control over native functionality and app distribution.
+
+#### Acceptance Criteria
+
+1. WHEN building the mobile app THEN the system SHALL use pure React Native CLI instead of Expo
+2. WHEN requiring native functionality THEN the system SHALL have direct access to native Android and iOS APIs
+3. WHEN building for production THEN the system SHALL generate native APK and IPA files without Expo dependencies
+4. WHEN adding native modules THEN the system SHALL support direct integration without Expo limitations
+5. WHEN customizing app icons and splash screens THEN the system SHALL use native configuration files

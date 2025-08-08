@@ -10,8 +10,11 @@ The Installment Fraud Detection System is a comprehensive platform that tracks i
 ```mermaid
 graph TB
     subgraph "Client Layer"
-        A[React Native Mobile App]
-        B[Web Application]
+        A[Pure React Native Mobile App]
+        B[Next.js Web Platform]
+        B1[Landing Page]
+        B2[Web Application]
+        B3[App Download Portal]
     end
     
     subgraph "API Gateway"
@@ -35,6 +38,8 @@ graph TB
     
     A --> C
     B --> C
+    B1 --> B2
+    B1 --> B3
     C --> D
     C --> E
     E --> F
@@ -384,6 +389,89 @@ interface ErrorResponse {
 - Asynchronous processing for fraud detection
 - Load balancing for high availability
 
+## Next.js Web Platform Components
+
+### 1. Landing Page Component
+
+**Purpose:** Provide product information and app download links
+
+**Key Features:**
+- Product overview and benefits explanation
+- Feature highlights and fraud detection capabilities
+- Download links for Android APK and iOS App Store
+- Contact information and support resources
+
+**Components:**
+```typescript
+interface LandingPageProps {
+  features: ProductFeature[]
+  downloadLinks: AppDownloadLinks
+  testimonials: Testimonial[]
+}
+
+interface AppDownloadLinks {
+  androidApk: string
+  iosAppStore: string
+  webApp: string
+}
+```
+
+### 2. Web Application Component
+
+**Purpose:** Full-featured web version of the mobile app
+
+**Key Features:**
+- Complete user authentication and role-based access
+- All mobile app functionality in web-optimized interface
+- Responsive design for desktop and tablet
+- Real-time updates and notifications
+
+**Role-Specific Dashboards:**
+- Customer Dashboard: Business selection, installment requests, history
+- Business Dashboard: Request management, customer history, approvals
+- Superadmin Dashboard: System overview, fraud monitoring, analytics
+
+### 3. App Download Portal
+
+**Purpose:** Centralized location for mobile app downloads
+
+**Key Features:**
+- QR codes for easy mobile download
+- Installation instructions for Android and iOS
+- Version information and release notes
+- System requirements and compatibility
+
+## Pure React Native Architecture
+
+### Native Module Integration
+```typescript
+// Native bridge for advanced functionality
+interface NativeBridge {
+  biometricAuth(): Promise<boolean>
+  deviceInfo(): Promise<DeviceInfo>
+  secureStorage: SecureStorageModule
+  pushNotifications: PushNotificationModule
+}
+```
+
+### Build Configuration
+```javascript
+// metro.config.js - React Native CLI configuration
+module.exports = {
+  transformer: {
+    getTransformOptions: async () => ({
+      transform: {
+        experimentalImportSupport: false,
+        inlineRequires: true,
+      },
+    }),
+  },
+  resolver: {
+    assetExts: ['bin', 'txt', 'jpg', 'png', 'json'],
+  },
+}
+```
+
 ## Infrastructure and Deployment
 
 ### Docker Containerization
@@ -393,7 +481,8 @@ The system will use Docker containers for consistent development and deployment 
 - PostgreSQL 15 for main database
 - Redis 7 for caching and session storage
 - FastAPI backend service
-- React Native Web frontend service
+- Next.js web platform service
+- Pure React Native development server (development only)
 
 **File Structure:**
 ```
@@ -404,8 +493,14 @@ project/
 │   ├── Dockerfile             # Backend container definition
 │   ├── init.sql              # Database initialization
 │   └── ...
+├── web/
+│   ├── Dockerfile             # Next.js web platform container
+│   ├── next.config.js         # Next.js configuration
+│   └── ...
 ├── mobile/
-│   ├── Dockerfile.web        # Web frontend container
+│   ├── android/               # Native Android configuration
+│   ├── ios/                   # Native iOS configuration
+│   ├── metro.config.js        # React Native CLI configuration
 │   └── ...
 └── README.md
 ```
