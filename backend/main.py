@@ -16,6 +16,7 @@ from installment_routes import router as installment_router
 from approval_routes import router as approval_router
 from history_routes import router as history_router
 from fraud_routes import router as fraud_router
+from admin_routes import router as admin_router
 from models import UserRole
 
 # Configure logging
@@ -78,6 +79,7 @@ app.include_router(installment_router)
 app.include_router(approval_router)
 app.include_router(history_router)
 app.include_router(fraud_router)
+app.include_router(admin_router)
 
 # Root endpoints
 @app.get("/")
