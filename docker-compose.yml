@@ -66,22 +66,22 @@ services:
       - app-network
     restart: unless-stopped
 
-  # React Native Web Frontend
-  frontend:
+  # Next.js Web Platform
+  web:
     build:
-      context: ./mobile
-      dockerfile: Dockerfile.web
-    container_name: installment_frontend
+      context: ./web
+      dockerfile: Dockerfile
+    container_name: installment_web
     ports:
       - "3000:3000"
     environment:
-      REACT_APP_API_URL: http://localhost:8000
-      REACT_APP_WS_URL: ws://localhost:8000
+      NEXT_PUBLIC_API_URL: http://localhost:8000
     depends_on:
       - backend
     volumes:
-      - ./mobile:/app
+      - ./web:/app
       - /app/node_modules
+      - /app/.next
     networks:
       - app-network
     restart: unless-stopped
