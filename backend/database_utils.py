@@ -6,7 +6,6 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
 from database import DATABASE_URL, Base, engine, get_db
-from translation_service import TranslationService
 import logging
 
 logger = logging.getLogger(__name__)
@@ -51,26 +50,34 @@ def init_database():
 def init_translations():
     """Initialize default translations"""
     try:
+        # Import here to avoid circular imports
+        from translation_models import Translation
+        from translation_service import TranslationService
+        
         # Get database session
         db = next(get_db())
         
-        # Check if translations already exist
-        from translation_models import Translation
-        existing_translations = db.query(Translation).first()
-        
-        if not existing_translations:
-            logger.info("Seeding default translations...")
-            translation_service = TranslationService(db)
-            translation_service.seed_default_translations()
-            logger.info("Default translations seeded successfully")
-        else:
-            logger.info("Translations already exist, skipping seed")
+        try:
+            # Check if translations already exist
+            existing_translations = db.query(Translation).first()
             
-        db.close()
-        return True
+            if not existing_translations:
+                logger.info("Seeding default translations...")
+                translation_service = TranslationService(db)
+                translation_service.seed_default_translations()
+                logger.info("Default translations seeded successfully")
+            else:
+                logger.info("Translations already exist, skipping seed")
+                
+            return True
+        finally:
+            db.close()
+            
     except Exception as e:
         logger.error(f"Translation initialization failed: {e}")
-        return False
+        # Don't fail the entire startup for translation issues
+        logger.warning("Continuing startup without translation seeding")
+        return True  # Return True to not block startup
 
 def check_database_connection():
     """Check if database connection is working"""

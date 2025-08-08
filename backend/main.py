@@ -8,8 +8,8 @@ import logging
 import uvicorn
 
 # Import our modules
-from database import create_tables, check_database_connection
-from database_utils import init_database
+from database import create_tables
+from database_utils import init_database, check_database_connection
 import translation_models  # Import to register models
 from auth_routes import router as auth_router
 from user_routes import router as user_router

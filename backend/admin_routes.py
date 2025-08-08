@@ -16,7 +16,8 @@ from models import (
     FraudAlert, FraudPattern, UserRole, RequestStatus, PlanStatus,
     PaymentStatus, AlertType, AlertSeverity, AlertStatus
 )
-from admin_service import AdminDashboardService, ReportingService
+from admin_service import AdminDashboardService
+from reporting_service import ReportingService
 
 logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/admin", tags=["Admin Dashboard"])

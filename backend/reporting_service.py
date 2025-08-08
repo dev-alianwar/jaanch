@@ -193,9 +193,9 @@ class ReportingService:
             'business_performance': performance_data[:limit],
             'total_businesses': len(performance_data),
             'generated_at': datetime.utcnow().isoformat()
-        }    
-   
- @staticmethod
+        }
+    
+    @staticmethod
     def generate_customer_risk_analysis_report(
         db: Session,
         risk_threshold: float,

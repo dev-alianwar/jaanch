@@ -83,7 +83,7 @@ class InstallmentRequestCreate(BaseModel):
     business_id: uuid.UUID
     product_name: str = Field(..., min_length=1, max_length=255)
     product_description: Optional[str] = None
-    product_value: Decimal = Field(..., gt=0, decimal_places=2)
+    product_value: Decimal = Field(..., gt=0)
     installment_months: int = Field(..., gt=0, le=60)
     
     @validator('product_name')
@@ -103,7 +103,7 @@ class InstallmentRequestCreate(BaseModel):
 class InstallmentRequestUpdate(BaseModel):
     product_name: Optional[str] = Field(None, min_length=1, max_length=255)
     product_description: Optional[str] = None
-    product_value: Optional[Decimal] = Field(None, gt=0, decimal_places=2)
+    product_value: Optional[Decimal] = Field(None, gt=0)
     installment_months: Optional[int] = Field(None, gt=0, le=60)
 
 class InstallmentRequestResponse(BaseSchema):
@@ -148,7 +148,7 @@ class InstallmentPlanResponse(BaseSchema):
 
 # Payment schemas
 class PaymentCreate(BaseModel):
-    amount: Decimal = Field(..., gt=0, decimal_places=2)
+    amount: Decimal = Field(..., gt=0)
     payment_method: Optional[str] = Field(None, max_length=50)
     notes: Optional[str] = None
 
