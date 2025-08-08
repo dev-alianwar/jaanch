@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { apiService } from '../services/apiService';
+import i18n from '../i18n';
 
 interface Props {
   navigation: any;
@@ -26,7 +27,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleLogin = async () => {
     if (!email.trim() || !password.trim()) {
-      Alert.alert('Error', 'Please enter both email and password');
+      Alert.alert(i18n.t('common.error'), 'Please enter both email and password');
       return;
     }
 
@@ -35,7 +36,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
       await login(email.toLowerCase().trim(), password);
     } catch (error) {
       const errorMessage = apiService.handleApiError(error);
-      Alert.alert('Login Failed', errorMessage);
+      Alert.alert(i18n.t('auth.loginFailed'), errorMessage);
     } finally {
       setLoading(false);
     }
@@ -52,16 +53,16 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     >
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.headerContainer}>
-          <Text style={styles.title}>Installment Fraud Detection</Text>
-          <Text style={styles.subtitle}>Sign in to your account</Text>
+          <Text style={styles.title}>InstallmentGuard</Text>
+          <Text style={styles.subtitle}>{i18n.t('auth.login')}</Text>
         </View>
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Email</Text>
+            <Text style={styles.inputLabel}>{i18n.t('auth.email')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your email"
+              placeholder={i18n.t('auth.email')}
               value={email}
               onChangeText={setEmail}
               keyboardType="email-address"
@@ -72,10 +73,10 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Password</Text>
+            <Text style={styles.inputLabel}>{i18n.t('auth.password')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your password"
+              placeholder={i18n.t('auth.password')}
               value={password}
               onChangeText={setPassword}
               secureTextEntry
@@ -93,7 +94,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             {loading ? (
               <ActivityIndicator color="#fff" />
             ) : (
-              <Text style={styles.loginButtonText}>Sign In</Text>
+              <Text style={styles.loginButtonText}>{i18n.t('auth.loginButton')}</Text>
             )}
           </TouchableOpacity>
 
@@ -108,7 +109,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             onPress={navigateToRegister}
             disabled={loading}
           >
-            <Text style={styles.registerButtonText}>Create New Account</Text>
+            <Text style={styles.registerButtonText}>{i18n.t('auth.registerButton')}</Text>
           </TouchableOpacity>
         </View>
 

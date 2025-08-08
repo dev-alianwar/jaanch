@@ -1,31 +1,32 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import i18n from '../i18n';
 
 const CustomerHomeScreen: React.FC = () => {
   const { user, logout } = useAuth();
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Customer Dashboard</Text>
-      <Text style={styles.welcome}>Welcome, {user?.firstName}!</Text>
+      <Text style={styles.title}>{i18n.t('dashboard.customerDashboard')}</Text>
+      <Text style={styles.welcome}>{i18n.t('dashboard.welcome', { name: user?.firstName })}</Text>
       
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Browse Businesses</Text>
+          <Text style={styles.menuText}>{i18n.t('dashboard.browseBusiness')}</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>My Installment Requests</Text>
+          <Text style={styles.menuText}>{i18n.t('dashboard.myInstallmentRequests')}</Text>
         </TouchableOpacity>
         
         <TouchableOpacity style={styles.menuItem}>
-          <Text style={styles.menuText}>Payment History</Text>
+          <Text style={styles.menuText}>{i18n.t('dashboard.paymentHistory')}</Text>
         </TouchableOpacity>
       </View>
       
       <TouchableOpacity style={styles.logoutButton} onPress={logout}>
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>{i18n.t('dashboard.logout')}</Text>
       </TouchableOpacity>
     </View>
   );

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
@@ -17,12 +17,23 @@ import { AuthProvider, useAuth } from './src/context/AuthContext';
 // Import types
 import { RootStackParamList } from './src/types/navigation';
 
+// Import i18n
+import { initializeTranslations } from './src/i18n';
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 function AppNavigator() {
   const { user, loading } = useAuth();
+  const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    // Initialize translations on app start
+    initializeTranslations().finally(() => {
+      setTranslationsLoaded(true);
+    });
+  }, []);
+
+  if (loading || !translationsLoaded) {
     return <LoadingScreen />;
   }
 

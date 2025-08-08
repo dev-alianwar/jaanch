@@ -52,7 +52,7 @@ services:
       JWT_SECRET: your-super-secret-jwt-key-change-in-production
       JWT_EXPIRE_MINUTES: 30
       REFRESH_TOKEN_EXPIRE_DAYS: 7
-      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:19006"]'
+      CORS_ORIGINS: '["http://localhost:3000", "http://localhost:3001", "http://localhost:19006"]'
       FRAUD_DETECTION_THRESHOLD: 0.7
       MAX_ACTIVE_INSTALLMENTS: 5
     depends_on:

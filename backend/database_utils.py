@@ -5,7 +5,8 @@ import asyncio
 from sqlalchemy import create_engine, text
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.orm import sessionmaker
-from database import DATABASE_URL, Base, engine
+from database import DATABASE_URL, Base, engine, get_db
+from translation_service import TranslationService
 import logging
 
 logger = logging.getLogger(__name__)
@@ -38,10 +39,37 @@ def init_database():
             if user_count == 0:
                 logger.info("Adding sample data...")
                 # Sample data will be added via init.sql
+        
+        # Initialize translations
+        init_translations()
                 
         return True
     except Exception as e:
         logger.error(f"Database initialization failed: {e}")
+        return False
+
+def init_translations():
+    """Initialize default translations"""
+    try:
+        # Get database session
+        db = next(get_db())
+        
+        # Check if translations already exist
+        from translation_models import Translation
+        existing_translations = db.query(Translation).first()
+        
+        if not existing_translations:
+            logger.info("Seeding default translations...")
+            translation_service = TranslationService(db)
+            translation_service.seed_default_translations()
+            logger.info("Default translations seeded successfully")
+        else:
+            logger.info("Translations already exist, skipping seed")
+            
+        db.close()
+        return True
+    except Exception as e:
+        logger.error(f"Translation initialization failed: {e}")
         return False
 
 def check_database_connection():

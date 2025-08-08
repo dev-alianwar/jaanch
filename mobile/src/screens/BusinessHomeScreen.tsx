@@ -9,25 +9,25 @@ const BusinessHomeScreen: React.FC = () => {
     <View style={styles.container}>
       <Text style={styles.title}>Business Dashboard</Text>
       <Text style={styles.welcome}>Welcome, {user?.firstName}!</Text>
-      
+
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.menuText}>Pending Requests</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.menuText}>Active Installments</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.menuText}>Customer History</Text>
         </TouchableOpacity>
-        
+
         <TouchableOpacity style={styles.menuItem}>
           <Text style={styles.menuText}>Business Analytics</Text>
         </TouchableOpacity>
       </View>
-      
+
       <TouchableOpacity style={styles.logoutButton} onPress={logout}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>

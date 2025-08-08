@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Input from '@/components/ui/Input';
 
 const LoginPage: React.FC = () => {
+  const t = useTranslations('auth');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +27,7 @@ const LoginPage: React.FC = () => {
       await login({ email, password });
       router.push('/app');
     } catch (err: any) {
-      setError(err.response?.data?.error?.message || 'Login failed. Please try again.');
+      setError(err.response?.data?.error?.message || t('loginFailed'));
     } finally {
       setLoading(false);
     }
@@ -36,12 +38,12 @@ const LoginPage: React.FC = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Sign in to your account
+            {t('signIn')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
             <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
-              create a new account
+              {t('createNew')}
             </Link>
           </p>
         </div>
@@ -55,28 +57,28 @@ const LoginPage: React.FC = () => {
           
           <div className="space-y-4">
             <Input
-              label="Email address"
+              label={t('email')}
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+              placeholder={t('enterEmail')}
             />
             
             <Input
-              label="Password"
+              label={t('password')}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Enter your password"
+              placeholder={t('enterPassword')}
             />
           </div>
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
-                Forgot your password?
+                {t('forgotPassword')}
               </Link>
             </div>
           </div>
@@ -87,7 +89,7 @@ const LoginPage: React.FC = () => {
             loading={loading}
             disabled={loading}
           >
-            Sign in
+            {t('signInButton')}
           </Button>
         </form>
       </div>

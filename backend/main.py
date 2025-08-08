@@ -10,6 +10,7 @@ import uvicorn
 # Import our modules
 from database import create_tables, check_database_connection
 from database_utils import init_database
+import translation_models  # Import to register models
 from auth_routes import router as auth_router
 from user_routes import router as user_router
 from installment_routes import router as installment_router
@@ -17,6 +18,7 @@ from approval_routes import router as approval_router
 from history_routes import router as history_router
 from fraud_routes import router as fraud_router
 from admin_routes import router as admin_router
+from translation_routes import router as translation_router
 from models import UserRole
 
 # Configure logging
@@ -32,14 +34,11 @@ async def lifespan(app: FastAPI):
     # Startup
     logger.info("Starting Installment Fraud Detection System...")
     
-    # Check database connection
-    if not check_database_connection():
-        logger.error("Database connection failed!")
-        raise Exception("Database connection failed")
-    
-    # Initialize database
-    if not init_database():
-        logger.warning("Database initialization had issues")
+    # Run startup sequence
+    from startup import startup_sequence
+    if not startup_sequence():
+        logger.error("Startup sequence failed!")
+        raise Exception("Startup sequence failed")
     
     logger.info("Application startup complete")
     
@@ -80,6 +79,7 @@ app.include_router(approval_router)
 app.include_router(history_router)
 app.include_router(fraud_router)
 app.include_router(admin_router)
+app.include_router(translation_router)
 
 # Root endpoints
 @app.get("/")
