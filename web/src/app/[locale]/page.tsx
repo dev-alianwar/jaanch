@@ -12,20 +12,33 @@ export default async function Home({
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative text-white" style={{ background: 'linear-gradient(to right, #008529, #006b1f)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <section className="relative text-white overflow-hidden" style={{ background: 'linear-gradient(135deg, #008529 0%, #006b1f 50%, #005515 100%)' }}>
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 relative z-10">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            <div className="mb-6">
+              <span className="inline-block px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
+                🛡️ Advanced Fraud Protection
+              </span>
+            </div>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
               Stop Installment Fraud
-              <span className="block text-primary-200">Before It Starts</span>
+              <span className="block text-green-200 mt-2">Before It Starts</span>
             </h1>
-            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-green-100 leading-relaxed">
               Advanced fraud detection system that tracks installment purchases across multiple businesses
               to prevent fraudulent chains and protect your revenue.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/register">
-                <Button size="lg" className="bg-white text-primary-600 hover:bg-gray-100">
+                <Button size="lg" className="bg-white text-primary-600 hover:bg-gray-100 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200">
+                  <span className="mr-2">🚀</span>
                   Get Started Free
                 </Button>
               </Link>

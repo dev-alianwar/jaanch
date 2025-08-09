@@ -12,7 +12,7 @@ export default function DownloadPage() {
     return (
         <div className="min-h-screen bg-gray-50">
             {/* Hero Section */}
-            <section className="relative text-white" style={{background: 'linear-gradient(to right, #008529, #005515)'}}>
+            <section className="relative text-white" style={{ background: 'linear-gradient(to right, #008529, #005515)' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                     <div className="text-center">
                         <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -26,9 +26,9 @@ export default function DownloadPage() {
                                 <Download className="mr-2 h-5 w-5" />
                                 Download Mobile App
                             </Button>
-                            <Button 
-                                size="lg" 
-                                variant="outline" 
+                            <Button
+                                size="lg"
+                                variant="outline"
                                 className="border-white text-white hover:bg-white hover:text-primary-600"
                             >
                                 <Monitor className="mr-2 h-5 w-5" />
@@ -227,7 +227,7 @@ export default function DownloadPage() {
             </section>
 
             {/* CTA Section */}
-            <section className="text-white py-20" style={{backgroundColor: '#008529'}}>
+            <section className="text-white py-20" style={{ backgroundColor: '#008529' }}>
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                     <h2 className="text-3xl md:text-4xl font-bold mb-4">
                         Ready to Get Started?
@@ -242,9 +242,9 @@ export default function DownloadPage() {
                             </Button>
                         </Link>
                         <Link href="/features">
-                            <Button 
-                                size="lg" 
-                                variant="outline" 
+                            <Button
+                                size="lg"
+                                variant="outline"
                                 className="border-white text-white hover:bg-white hover:text-primary-600"
                             >
                                 View All Features
