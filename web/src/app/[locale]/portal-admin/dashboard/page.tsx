@@ -40,7 +40,7 @@ const AdminDashboard: React.FC = () => {
   if (!adminUser) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{borderColor: '#008529'}}></div>
       </div>
     );
   }
@@ -90,7 +90,7 @@ const AdminDashboard: React.FC = () => {
                 <div className="p-6">
                   <div className="flex items-center">
                     <div className="flex-shrink-0">
-                      <Globe className="h-8 w-8 text-blue-600" />
+                      <Globe className="h-8 w-8" style={{color: '#008529'}} />
                     </div>
                     <div className="ml-5 w-0 flex-1">
                       <dl>

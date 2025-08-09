@@ -166,7 +166,7 @@ const TranslationManagement: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{borderColor: '#008529'}}></div>
       </div>
     );
   }
@@ -178,7 +178,7 @@ const TranslationManagement: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Globe className="h-6 w-6 text-blue-600 mr-3" />
+              <Globe className="h-6 w-6 mr-3" style={{color: '#008529'}} />
               <h1 className="text-xl font-bold text-gray-900">
                 Translation Management
               </h1>
@@ -414,7 +414,7 @@ const TranslationManagement: React.FC = () => {
                             <div className="flex space-x-2">
                               <button
                                 onClick={() => handleEdit(translation)}
-                                className="text-blue-600 hover:text-blue-900"
+                                className="hover:opacity-80" style={{color: '#008529'}}
                               >
                                 <Edit className="h-4 w-4" />
                               </button>

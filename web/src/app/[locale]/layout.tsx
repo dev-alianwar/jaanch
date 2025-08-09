@@ -22,39 +22,43 @@ export default async function RootLayout({
 }) {
   const { locale } = await params;
 
+  // Ensure locale is valid to prevent hydration mismatches
+  const validLocale = locale === 'ur' ? 'ur' : 'en';
+  const direction = validLocale === 'ur' ? 'rtl' : 'ltr';
+
   const fallbackMessages = {
     navigation: {
-      home: locale === 'ur' ? 'ہوم' : 'Home',
-      features: locale === 'ur' ? 'خصوصیات' : 'Features',
-      download: locale === 'ur' ? 'ڈاؤن لوڈ' : 'Download',
-      dashboard: locale === 'ur' ? 'ڈیش بورڈ' : 'Dashboard',
-      login: locale === 'ur' ? 'لاگ ان' : 'Login',
-      register: locale === 'ur' ? 'رجسٹر' : 'Register',
-      logout: locale === 'ur' ? 'لاگ آؤٹ' : 'Logout',
+      home: validLocale === 'ur' ? 'ہوم' : 'Home',
+      features: validLocale === 'ur' ? 'خصوصیات' : 'Features',
+      download: validLocale === 'ur' ? 'ڈاؤن لوڈ' : 'Download',
+      dashboard: validLocale === 'ur' ? 'ڈیش بورڈ' : 'Dashboard',
+      login: validLocale === 'ur' ? 'لاگ ان' : 'Login',
+      register: validLocale === 'ur' ? 'رجسٹر' : 'Register',
+      logout: validLocale === 'ur' ? 'لاگ آؤٹ' : 'Logout',
     },
     auth: {
-      signIn: locale === 'ur' ? 'اپنے اکاؤنٹ میں سائن ان کریں' : 'Sign in to your account',
-      email: locale === 'ur' ? 'ای میل ایڈریس' : 'Email address',
-      password: locale === 'ur' ? 'پاس ورڈ' : 'Password',
-      enterEmail: locale === 'ur' ? 'اپنا ای میل درج کریں' : 'Enter your email',
-      enterPassword: locale === 'ur' ? 'اپنا پاس ورڈ درج کریں' : 'Enter your password',
-      signInButton: locale === 'ur' ? 'سائن ان' : 'Sign in',
-      createNew: locale === 'ur' ? 'نیا اکاؤنٹ بنائیں' : 'create a new account',
-      forgotPassword: locale === 'ur' ? 'اپنا پاس ورڈ بھول گئے؟' : 'Forgot your password?',
+      signIn: validLocale === 'ur' ? 'اپنے اکاؤنٹ میں سائن ان کریں' : 'Sign in to your account',
+      email: validLocale === 'ur' ? 'ای میل ایڈریس' : 'Email address',
+      password: validLocale === 'ur' ? 'پاس ورڈ' : 'Password',
+      enterEmail: validLocale === 'ur' ? 'اپنا ای میل درج کریں' : 'Enter your email',
+      enterPassword: validLocale === 'ur' ? 'اپنا پاس ورڈ درج کریں' : 'Enter your password',
+      signInButton: validLocale === 'ur' ? 'سائن ان' : 'Sign in',
+      createNew: validLocale === 'ur' ? 'نیا اکاؤنٹ بنائیں' : 'create a new account',
+      forgotPassword: validLocale === 'ur' ? 'اپنا پاس ورڈ بھول گئے؟' : 'Forgot your password?',
     },
     home: {
-      heroTitle: locale === 'ur' ? 'قسط کی دھوکہ دہی کو روکیں' : 'Stop Installment Fraud',
-      heroSubtitle: locale === 'ur' ? 'اس سے پہلے کہ یہ شروع ہو' : 'Before It Starts',
-      heroDescription: locale === 'ur' ? 'جدید فراڈ ڈیٹیکشن سسٹم جو متعدد کاروبار میں قسط کی خریداری کو ٹریک کرتا ہے' : 'Advanced fraud detection system that tracks installment purchases across multiple businesses',
-      getStartedFree: locale === 'ur' ? 'مفت شروع کریں' : 'Get Started Free',
-      downloadApps: locale === 'ur' ? 'ایپس ڈاؤن لوڈ کریں' : 'Download Apps',
+      heroTitle: validLocale === 'ur' ? 'قسط کی دھوکہ دہی کو روکیں' : 'Stop Installment Fraud',
+      heroSubtitle: validLocale === 'ur' ? 'اس سے پہلے کہ یہ شروع ہو' : 'Before It Starts',
+      heroDescription: validLocale === 'ur' ? 'جدید فراڈ ڈیٹیکشن سسٹم جو متعدد کاروبار میں قسط کی خریداری کو ٹریک کرتا ہے' : 'Advanced fraud detection system that tracks installment purchases across multiple businesses',
+      getStartedFree: validLocale === 'ur' ? 'مفت شروع کریں' : 'Get Started Free',
+      downloadApps: validLocale === 'ur' ? 'ایپس ڈاؤن لوڈ کریں' : 'Download Apps',
     }
   };
 
   return (
-    <html lang={locale} dir={locale === 'ur' ? 'rtl' : 'ltr'}>
+    <html lang={validLocale} dir={direction} suppressHydrationWarning>
       <body className={inter.className}>
-        <TranslationProvider locale={locale} initialMessages={fallbackMessages}>
+        <TranslationProvider locale={validLocale} initialMessages={fallbackMessages}>
           <AuthProvider>
             <div className="min-h-screen flex flex-col">
               <Header />

@@ -79,7 +79,7 @@ const RegisterPage: React.FC = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link href="/login" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link href="/login" className="font-medium hover:opacity-80" style={{color: '#008529'}}>
               sign in to your existing account
             </Link>
           </p>

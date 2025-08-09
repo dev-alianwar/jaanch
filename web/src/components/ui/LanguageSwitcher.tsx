@@ -22,7 +22,7 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => switchLanguage('en')}
         className={`px-2 py-1 text-sm rounded ${
           locale === 'en'
-            ? 'bg-blue-600 text-white'
+            ? 'bg-primary-500 text-white'
             : 'text-gray-600 hover:text-gray-900'
         }`}
       >
@@ -32,7 +32,7 @@ const LanguageSwitcher: React.FC = () => {
         onClick={() => switchLanguage('ur')}
         className={`px-2 py-1 text-sm rounded ${
           locale === 'ur'
-            ? 'bg-blue-600 text-white'
+            ? 'bg-primary-500 text-white'
             : 'text-gray-600 hover:text-gray-900'
         }`}
       >
