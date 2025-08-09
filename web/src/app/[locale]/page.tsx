@@ -1,10 +1,15 @@
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import Button from '@/components/ui/Button';
 import { Shield, Users, TrendingUp, AlertTriangle, CheckCircle, Smartphone } from 'lucide-react';
 
-export default function Home() {
-  const t = useTranslations('home');
+export default async function Home({
+  params
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: 'home' });
   return (
     <div className="bg-white">
       {/* Hero Section */}

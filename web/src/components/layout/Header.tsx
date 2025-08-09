@@ -2,14 +2,14 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { useTranslations } from 'next-intl';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
+import { useSafeTranslations } from '@/hooks/useSafeTranslations';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
-  const t = useTranslations('navigation');
+  const t = useSafeTranslations('navigation');
 
   return (
     <header className="bg-white shadow-sm border-b">

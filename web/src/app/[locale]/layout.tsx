@@ -16,19 +16,46 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({
   children,
-  params: { locale }
+  params
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  // Providing all messages to the client
-  // side is the easiest way to get started
-  const messages = await getMessages();
+  const { locale } = await params;
+  
+  // Providing all messages to the client side
+  let messages;
+  try {
+    messages = await getMessages();
+  } catch (error) {
+    console.warn('Failed to load messages, using fallback');
+    messages = {
+      navigation: {
+        home: 'Home',
+        features: 'Features',
+        download: 'Download',
+        dashboard: 'Dashboard',
+        login: 'Login',
+        register: 'Register',
+        logout: 'Logout',
+      },
+      auth: {
+        signIn: 'Sign in to your account',
+        email: 'Email address',
+        password: 'Password',
+        enterEmail: 'Enter your email',
+        enterPassword: 'Enter your password',
+        signInButton: 'Sign in',
+        createNew: 'create a new account',
+        forgotPassword: 'Forgot your password?',
+      }
+    };
+  }
 
   return (
     <html lang={locale} dir={locale === 'ur' ? 'rtl' : 'ltr'}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale}>
           <AuthProvider>
             <div className="min-h-screen flex flex-col">
               <Header />
