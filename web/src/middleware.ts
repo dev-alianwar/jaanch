@@ -1,19 +1,25 @@
-import createMiddleware from 'next-intl/middleware';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
 
-export default createMiddleware({
-  // A list of all locales that are supported
-  locales: ['en', 'ur'],
+export function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+  
+  // Check if pathname starts with supported locale
+  const pathnameIsMissingLocale = ['en', 'ur'].every(
+    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
+  );
 
-  // Used when no locale matches
-  defaultLocale: 'en'
-});
+  // Redirect if there is no locale
+  if (pathnameIsMissingLocale) {
+    return NextResponse.redirect(
+      new URL(`/en${pathname}`, request.url)
+    );
+  }
+}
 
 export const config = {
-  // Match only internationalized pathnames
   matcher: [
-    // Match all pathnames except for
-    // - … if they start with `/api`, `/_next` or `/_vercel`
-    // - … the ones containing a dot (e.g. `favicon.ico`)
-    '/((?!api|_next|_vercel|.*\\..*).*)'
-  ]
+    // Skip all internal paths (_next)
+    '/((?!_next|api|favicon.ico).*)',
+  ],
 };

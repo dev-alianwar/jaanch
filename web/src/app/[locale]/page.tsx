@@ -9,7 +9,6 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'home' });
   return (
     <div className="bg-white">
       {/* Hero Section */}
@@ -17,21 +16,22 @@ export default async function Home({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              {t('heroTitle')}
-              <span className="block text-blue-200">{t('heroSubtitle')}</span>
+              Stop Installment Fraud
+              <span className="block text-blue-200">Before It Starts</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              {t('heroDescription')}
+              Advanced fraud detection system that tracks installment purchases across multiple businesses 
+              to prevent fraudulent chains and protect your revenue.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/register">
                 <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                  {t('getStartedFree')}
+                  Get Started Free
                 </Button>
               </Link>
               <Link href="/download">
                 <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                  {t('downloadApps')}
+                  Download Apps
                 </Button>
               </Link>
             </div>
