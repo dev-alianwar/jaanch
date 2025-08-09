@@ -2,12 +2,12 @@
 
 import React from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { useSafeLocale } from '@/hooks/useSafeLocale';
+import { useTranslationFallback } from '@/components/TranslationProvider';
 
 const LanguageSwitcher: React.FC = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const locale = useSafeLocale();
+  const { locale } = useTranslationFallback();
 
   const switchLanguage = (newLocale: string) => {
     // Remove the current locale from the pathname

@@ -5,11 +5,13 @@ import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
-import { useSafeTranslations } from '@/hooks/useSafeTranslations';
+import { useTranslationFallback } from '@/components/TranslationProvider';
 
 const Header: React.FC = () => {
   const { user, logout } = useAuth();
-  const t = useSafeTranslations('navigation');
+  const { t } = useTranslationFallback();
+
+  console.log('Header rendering, user:', user, 'translations:', t('navigation.home'));
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -23,17 +25,17 @@ const Header: React.FC = () => {
           
           <nav className="hidden md:flex space-x-8">
             <Link href="/" className="text-gray-500 hover:text-gray-900">
-              {t('home')}
+              {t('navigation.home')}
             </Link>
             <Link href="/features" className="text-gray-500 hover:text-gray-900">
-              {t('features')}
+              {t('navigation.features')}
             </Link>
             <Link href="/download" className="text-gray-500 hover:text-gray-900">
-              {t('download')}
+              {t('navigation.download')}
             </Link>
             {user && (
               <Link href="/app" className="text-gray-500 hover:text-gray-900">
-                {t('dashboard')}
+                {t('navigation.dashboard')}
               </Link>
             )}
           </nav>
@@ -46,19 +48,19 @@ const Header: React.FC = () => {
                   Welcome, {user.firstName}
                 </span>
                 <Button variant="outline" size="sm" onClick={logout}>
-                  {t('logout')}
+                  {t('navigation.logout')}
                 </Button>
               </div>
             ) : (
               <div className="flex items-center space-x-2">
                 <Link href="/login">
                   <Button variant="outline" size="sm">
-                    {t('login')}
+                    {t('navigation.login')}
                   </Button>
                 </Link>
                 <Link href="/register">
                   <Button size="sm">
-                    {t('register')}
+                    {t('navigation.register')}
                   </Button>
                 </Link>
               </div>
