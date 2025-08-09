@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Smartphone, Monitor, Download, CheckCircle, Shield, Users } from 'lucide-react';
 import Button from '@/components/ui/Button';
+import { MobileAppScreenshot, DesktopAppScreenshot } from '@/components/AppScreenshots';
 export const metadata: Metadata = {
     title: 'Download Apps - Fraud Detection System',
     description: 'Download our mobile and desktop applications for comprehensive fraud detection across all platforms.',
@@ -19,7 +20,7 @@ export default function DownloadPage() {
                             Download Our Apps
                         </h1>
                         <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-                            Access our fraud detection system from anywhere with our mobile and desktop applications
+                            Dedicated apps for customers and businesses - access fraud protection tools from anywhere
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button size="lg" className="bg-white text-primary-600 hover:bg-gray-100">
@@ -95,13 +96,16 @@ export default function DownloadPage() {
                         </div>
 
                         <div className="text-center">
-                            <div className="bg-primary-600 p-8 rounded-2xl text-white">
-                                <Smartphone className="h-32 w-32 text-white mx-auto mb-4" />
-                                <h4 className="text-xl font-semibold text-white mb-2">
-                                    Mobile-First Design
+                            <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-2xl">
+                                <h4 className="text-xl font-semibold text-gray-900 mb-6">
+                                    App Screenshots
                                 </h4>
-                                <p className="text-primary-100">
-                                    Optimized for mobile workflows with intuitive touch interfaces
+                                <div className="flex justify-center space-x-4">
+                                    <MobileAppScreenshot type="customer" />
+                                    <MobileAppScreenshot type="business" />
+                                </div>
+                                <p className="text-gray-600 mt-4">
+                                    Customer and Business mobile interfaces
                                 </p>
                             </div>
                         </div>
@@ -123,13 +127,15 @@ export default function DownloadPage() {
 
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div className="text-center">
-                            <div className="bg-primary-600 p-8 rounded-2xl text-white">
-                                <Monitor className="h-32 w-32 text-white mx-auto mb-4" />
-                                <h4 className="text-xl font-semibold text-white mb-2">
-                                    Desktop Experience
+                            <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-8 rounded-2xl">
+                                <h4 className="text-xl font-semibold text-gray-900 mb-6">
+                                    Desktop Dashboard
                                 </h4>
-                                <p className="text-primary-100">
-                                    Full-featured interface optimized for desktop workflows
+                                <div className="flex justify-center">
+                                    <DesktopAppScreenshot />
+                                </div>
+                                <p className="text-gray-600 mt-4">
+                                    Full-featured web dashboard interface
                                 </p>
                             </div>
                         </div>
@@ -168,6 +174,57 @@ export default function DownloadPage() {
                                         Access Web Portal
                                     </Button>
                                 </Link>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* App Screenshots Gallery */}
+            <section className="py-20 bg-white">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="text-center mb-16">
+                        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                            See Our Apps in Action
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Different interfaces for different user roles - all designed for maximum efficiency
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-12 mb-12 max-w-4xl mx-auto">
+                        <div className="text-center">
+                            <MobileAppScreenshot type="customer" />
+                            <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Customer App</h3>
+                            <p className="text-gray-600">
+                                Track your purchases, view credit status, manage payments, and receive security notifications
+                            </p>
+                        </div>
+
+                        <div className="text-center">
+                            <MobileAppScreenshot type="business" />
+                            <h3 className="text-xl font-semibold text-gray-900 mt-6 mb-3">Business App</h3>
+                            <p className="text-gray-600">
+                                Real-time fraud alerts, customer verification tools, risk assessment, and business analytics
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="text-center">
+                        <div className="bg-gradient-to-r from-primary-50 to-primary-100 p-8 rounded-2xl">
+                            <h3 className="text-2xl font-bold text-gray-900 mb-4">Ready to Download?</h3>
+                            <p className="text-gray-600 mb-6">
+                                Get started with our mobile apps and see the difference real-time fraud detection makes
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                                <Button size="lg" className="bg-primary-600 text-white hover:bg-primary-700">
+                                    <Download className="mr-2 h-5 w-5" />
+                                    Download for iOS
+                                </Button>
+                                <Button size="lg" className="bg-primary-600 text-white hover:bg-primary-700">
+                                    <Download className="mr-2 h-5 w-5" />
+                                    Download for Android
+                                </Button>
                             </div>
                         </div>
                     </div>
