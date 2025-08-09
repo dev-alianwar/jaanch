@@ -47,7 +47,7 @@ interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
 }
 
 export const CardTitle: React.FC<CardTitleProps> = ({ className, children, ...props }) => (
-  <h3 className={cn('text-xl font-semibold text-gray-900 dark:text-gray-100', className)} {...props}>
+  <h3 className={cn('text-xl font-bold text-gray-900 dark:text-gray-100', className)} {...props}>
     {children}
   </h3>
 );
@@ -57,7 +57,7 @@ interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const CardContent: React.FC<CardContentProps> = ({ className, children, ...props }) => (
-  <div className={cn('text-gray-600 dark:text-gray-300', className)} {...props}>
+  <div className={cn('text-gray-700 dark:text-gray-300 font-medium', className)} {...props}>
     {children}
   </div>
 );

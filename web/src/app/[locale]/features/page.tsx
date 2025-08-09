@@ -14,7 +14,7 @@ import {
   Lock,
   Zap
 } from 'lucide-react';
-import Button from '@/components/ui/Button';
+import { Button } from '@/theme/components';
 
 export const metadata: Metadata = {
   title: 'Features - Fraud Detection System',
