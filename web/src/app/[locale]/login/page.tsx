@@ -42,7 +42,7 @@ const LoginPage: React.FC = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <Link href="/register" className="font-medium text-blue-600 hover:text-blue-500">
+            <Link href="/register" className="font-medium hover:opacity-80" style={{color: '#008529'}}>
               {t('createNew')}
             </Link>
           </p>
@@ -77,7 +77,7 @@ const LoginPage: React.FC = () => {
 
           <div className="flex items-center justify-between">
             <div className="text-sm">
-              <Link href="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500">
+              <Link href="/forgot-password" className="font-medium hover:opacity-80" style={{color: '#008529'}}>
                 {t('forgotPassword')}
               </Link>
             </div>

@@ -43,7 +43,7 @@ const AdminPortalLogin: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-900 to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8" style={{background: 'linear-gradient(to bottom right, #005515, #00440b)'}}>
       <div className="max-w-md w-full space-y-8">
         <div className="bg-white rounded-lg shadow-xl p-8">
           <div className="text-center mb-8">
@@ -84,7 +84,7 @@ const AdminPortalLogin: React.FC = () => {
 
             <Button
               type="submit"
-              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              className="w-full" style={{background: 'linear-gradient(to right, #008529, #006b1f)'}}
               loading={loading}
               disabled={loading}
             >

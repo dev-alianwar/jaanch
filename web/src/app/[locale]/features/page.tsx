@@ -311,7 +311,7 @@ export default function FeaturesPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white p-8 rounded-lg shadow-sm border">
-              <div className="bg-blue-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+              <div className="rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4" style={{backgroundColor: '#dcfce7'}}>
                 <Users className="h-8 w-8" style={{color: '#008529'}} />
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-4 text-center">
@@ -458,7 +458,11 @@ export default function FeaturesPage() {
               </Button>
             </Link>
             <Link href="/download">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary-600">
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="border-white text-white hover:bg-white hover:text-primary-600"
+              >
                 Download Apps
               </Button>
             </Link>

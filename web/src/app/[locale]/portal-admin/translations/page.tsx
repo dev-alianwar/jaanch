@@ -30,7 +30,7 @@ const TranslationManagement: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedLocale, setSelectedLocale] = useState('all');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  
+
   const [newTranslation, setNewTranslation] = useState({
     key: '',
     locale: 'en',
@@ -47,7 +47,7 @@ const TranslationManagement: React.FC = () => {
       router.push('/portal-admin');
       return;
     }
-    
+
     // Set up API interceptor for admin token
     api.interceptors.request.use((config) => {
       config.headers.Authorization = `Bearer ${token}`;
@@ -77,7 +77,7 @@ const TranslationManagement: React.FC = () => {
     let filtered = translations;
 
     if (searchTerm) {
-      filtered = filtered.filter(t => 
+      filtered = filtered.filter(t =>
         t.key.toLowerCase().includes(searchTerm.toLowerCase()) ||
         t.value.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -106,13 +106,13 @@ const TranslationManagement: React.FC = () => {
         value: editValue,
         description: editDescription
       });
-      
-      setTranslations(translations.map(t => 
-        t.id === id 
+
+      setTranslations(translations.map(t =>
+        t.id === id
           ? { ...t, value: editValue, description: editDescription }
           : t
       ));
-      
+
       setEditingId(null);
       setEditValue('');
       setEditDescription('');
@@ -166,7 +166,7 @@ const TranslationManagement: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{borderColor: '#008529'}}></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2" style={{ borderColor: '#008529' }}></div>
       </div>
     );
   }
@@ -178,12 +178,12 @@ const TranslationManagement: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Globe className="h-6 w-6 mr-3" style={{color: '#008529'}} />
+              <Globe className="h-6 w-6 mr-3" style={{ color: '#008529' }} />
               <h1 className="text-xl font-bold text-gray-900">
                 Translation Management
               </h1>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <Button variant="outline" onClick={seedTranslations}>
                 Seed Defaults
@@ -211,7 +211,7 @@ const TranslationManagement: React.FC = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Language
@@ -219,14 +219,14 @@ const TranslationManagement: React.FC = () => {
                 <select
                   value={selectedLocale}
                   onChange={(e) => setSelectedLocale(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 >
                   <option value="all">All Languages</option>
                   <option value="en">English</option>
                   <option value="ur">Urdu</option>
                 </select>
               </div>
-              
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Category
@@ -234,7 +234,7 @@ const TranslationManagement: React.FC = () => {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                 >
                   <option value="all">All Categories</option>
                   {categories.map(category => (
@@ -242,7 +242,7 @@ const TranslationManagement: React.FC = () => {
                   ))}
                 </select>
               </div>
-              
+
               <div className="flex items-end">
                 <Button variant="outline" onClick={() => {
                   setSearchTerm('');
@@ -264,47 +264,47 @@ const TranslationManagement: React.FC = () => {
                   label="Key"
                   placeholder="e.g., auth.login"
                   value={newTranslation.key}
-                  onChange={(e) => setNewTranslation({...newTranslation, key: e.target.value})}
+                  onChange={(e) => setNewTranslation({ ...newTranslation, key: e.target.value })}
                 />
-                
+
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Language
                   </label>
                   <select
                     value={newTranslation.locale}
-                    onChange={(e) => setNewTranslation({...newTranslation, locale: e.target.value})}
-                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    onChange={(e) => setNewTranslation({ ...newTranslation, locale: e.target.value })}
+                    className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                   >
                     <option value="en">English</option>
                     <option value="ur">Urdu</option>
                   </select>
                 </div>
-                
+
                 <Input
                   label="Value"
                   placeholder="Translation text"
                   value={newTranslation.value}
-                  onChange={(e) => setNewTranslation({...newTranslation, value: e.target.value})}
+                  onChange={(e) => setNewTranslation({ ...newTranslation, value: e.target.value })}
                 />
-                
+
                 <Input
                   label="Category"
                   placeholder="e.g., auth, dashboard"
                   value={newTranslation.category}
-                  onChange={(e) => setNewTranslation({...newTranslation, category: e.target.value})}
+                  onChange={(e) => setNewTranslation({ ...newTranslation, category: e.target.value })}
                 />
-                
+
                 <div className="md:col-span-2">
                   <Input
                     label="Description"
                     placeholder="Optional description for translators"
                     value={newTranslation.description}
-                    onChange={(e) => setNewTranslation({...newTranslation, description: e.target.value})}
+                    onChange={(e) => setNewTranslation({ ...newTranslation, description: e.target.value })}
                   />
                 </div>
               </div>
-              
+
               <div className="flex justify-end space-x-3 mt-4">
                 <Button variant="outline" onClick={() => setShowAddForm(false)}>
                   Cancel
@@ -324,7 +324,7 @@ const TranslationManagement: React.FC = () => {
                   Translations ({filteredTranslations.length})
                 </h3>
               </div>
-              
+
               <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
@@ -353,11 +353,14 @@ const TranslationManagement: React.FC = () => {
                           {translation.key}
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            translation.locale === 'en' 
-                              ? 'bg-blue-100 text-blue-800' 
-                              : 'bg-green-100 text-green-800'
-                          }`}>
+                          <span 
+                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                              translation.locale === 'en' 
+                                ? 'text-white' 
+                                : 'bg-green-100 text-green-800'
+                            }`}
+                            style={translation.locale === 'en' ? {backgroundColor: '#008529'} : {}}
+                          >
                             {translation.locale === 'en' ? 'English' : 'Urdu'}
                           </span>
                         </td>
@@ -367,7 +370,7 @@ const TranslationManagement: React.FC = () => {
                               <textarea
                                 value={editValue}
                                 onChange={(e) => setEditValue(e.target.value)}
-                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                                 rows={2}
                               />
                               <input
@@ -375,7 +378,7 @@ const TranslationManagement: React.FC = () => {
                                 placeholder="Description (optional)"
                                 value={editDescription}
                                 onChange={(e) => setEditDescription(e.target.value)}
-                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm"
                               />
                             </div>
                           ) : (
@@ -429,14 +432,14 @@ const TranslationManagement: React.FC = () => {
                         </td>
                       </tr>
                     ))}
-                  </tbody>
-                </table>
-              </div>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </main>
     </div>
+      </main >
+    </div >
   );
 };
 

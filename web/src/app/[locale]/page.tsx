@@ -12,7 +12,7 @@ export default async function Home({
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative text-white" style={{background: 'linear-gradient(to right, #008529, #006b1f)'}}>
+      <section className="relative text-white" style={{ background: 'linear-gradient(to right, #008529, #006b1f)' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
           <div className="text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
@@ -20,7 +20,7 @@ export default async function Home({
               <span className="block text-primary-200">Before It Starts</span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
-              Advanced fraud detection system that tracks installment purchases across multiple businesses 
+              Advanced fraud detection system that tracks installment purchases across multiple businesses
               to prevent fraudulent chains and protect your revenue.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -30,7 +30,11 @@ export default async function Home({
                 </Button>
               </Link>
               <Link href="/download">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary-600">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-primary-600"
+                >
                   Download Apps
                 </Button>
               </Link>
@@ -47,7 +51,7 @@ export default async function Home({
               Comprehensive Fraud Protection
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Our advanced system detects fraudulent patterns where customers obtain products on installment, 
+              Our advanced system detects fraudulent patterns where customers obtain products on installment,
               sell for cash, and repeat the cycle across multiple businesses.
             </p>
           </div>
@@ -57,7 +61,7 @@ export default async function Home({
               <Shield className="h-12 w-12 text-primary-500 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Real-time Fraud Detection</h3>
               <p className="text-gray-600">
-                Advanced algorithms analyze customer behavior patterns and detect suspicious activities 
+                Advanced algorithms analyze customer behavior patterns and detect suspicious activities
                 across multiple businesses in real-time.
               </p>
             </div>
@@ -66,7 +70,7 @@ export default async function Home({
               <Users className="h-12 w-12 text-primary-600 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Cross-Business Intelligence</h3>
               <p className="text-gray-600">
-                Share customer installment history across participating businesses to make 
+                Share customer installment history across participating businesses to make
                 informed credit decisions and prevent fraud chains.
               </p>
             </div>
@@ -75,7 +79,7 @@ export default async function Home({
               <TrendingUp className="h-12 w-12 text-primary-700 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Risk Assessment</h3>
               <p className="text-gray-600">
-                Comprehensive risk scoring system that evaluates customer creditworthiness 
+                Comprehensive risk scoring system that evaluates customer creditworthiness
                 and fraud probability based on historical data.
               </p>
             </div>
@@ -84,7 +88,7 @@ export default async function Home({
               <AlertTriangle className="h-12 w-12 text-red-600 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Automated Alerts</h3>
               <p className="text-gray-600">
-                Instant notifications when suspicious patterns are detected, allowing 
+                Instant notifications when suspicious patterns are detected, allowing
                 businesses to take immediate action to prevent losses.
               </p>
             </div>
@@ -93,7 +97,7 @@ export default async function Home({
               <CheckCircle className="h-12 w-12 text-primary-500 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Easy Integration</h3>
               <p className="text-gray-600">
-                Simple API integration and user-friendly interfaces for businesses 
+                Simple API integration and user-friendly interfaces for businesses
                 of all sizes to start protecting against fraud immediately.
               </p>
             </div>
@@ -102,7 +106,7 @@ export default async function Home({
               <Smartphone className="h-12 w-12 text-primary-600 mb-4" />
               <h3 className="text-xl font-semibold mb-3">Mobile & Web Access</h3>
               <p className="text-gray-600">
-                Access the system from anywhere with native mobile apps and 
+                Access the system from anywhere with native mobile apps and
                 comprehensive web platform for maximum flexibility.
               </p>
             </div>
@@ -157,23 +161,27 @@ export default async function Home({
       </section>
 
       {/* CTA Section */}
-      <section className="text-white py-20" style={{backgroundColor: '#008529'}}>
+      <section className="text-white py-20" style={{ backgroundColor: '#008529' }}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
             Ready to Protect Your Business?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Join hundreds of businesses already using InstallmentGuard to prevent fraud 
+            Join hundreds of businesses already using InstallmentGuard to prevent fraud
             and make smarter credit decisions.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/register">
-              <Button size="lg" className="bg-white hover:bg-gray-100" style={{color: '#008529'}}>
+              <Button size="lg" className="bg-white hover:bg-gray-100 text-green-600">
                 Start Free Trial
               </Button>
             </Link>
             <Link href="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white" style={{'--hover-color': '#008529'} as any}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-white text-white hover:bg-white hover:text-primary-600"
+              >
                 Contact Sales
               </Button>
             </Link>

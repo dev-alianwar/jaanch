@@ -26,7 +26,11 @@ export default function DownloadPage() {
                                 <Download className="mr-2 h-5 w-5" />
                                 Download Mobile App
                             </Button>
-                            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary-600">
+                            <Button 
+                                size="lg" 
+                                variant="outline" 
+                                className="border-white text-white hover:bg-white hover:text-primary-600"
+                            >
                                 <Monitor className="mr-2 h-5 w-5" />
                                 Web Application
                             </Button>
@@ -238,7 +242,11 @@ export default function DownloadPage() {
                             </Button>
                         </Link>
                         <Link href="/features">
-                            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary-600">
+                            <Button 
+                                size="lg" 
+                                variant="outline" 
+                                className="border-white text-white hover:bg-white hover:text-primary-600"
+                            >
                                 View All Features
                             </Button>
                         </Link>
