@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 import { Button } from '@/theme/components';
 import { Shield, Users, TrendingUp, AlertTriangle, CheckCircle, Smartphone } from 'lucide-react';
 import TransparentHeader from '@/components/layout/TransparentHeader';
-
 export default async function Home({
   params
 }: {
@@ -30,45 +29,40 @@ export default async function Home({
           <div className="absolute top-40 right-20 w-16 h-16 bg-white bg-opacity-15 rounded-full animate-pulse delay-1000"></div>
           <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-white bg-opacity-20 rounded-full animate-pulse delay-2000"></div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-            <div className="text-center">
-              <div className="mb-6">
-                <span className="inline-block px-4 py-2 bg-white bg-opacity-20 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
-                  🛡️ Advanced Fraud Protection
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                Stop Installment Fraud
-                <span className="block text-green-200 mt-2">Before It Starts</span>
-              </h1>
-              <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-green-100 leading-relaxed">
-                Advanced fraud detection system that tracks installment purchases across multiple businesses
-                to prevent fraudulent chains and protect your revenue.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
-                <Link href="/register" className="flex-1">
-                  <Button
-                    size="xl"
-                    variant="secondary"
-                    icon={<span>🚀</span>}
-                    className="shadow-lg hover:shadow-xl font-semibold w-full"
-                    fullWidth
-                  >
-                    Get Started Free
-                  </Button>
-                </Link>
-                <Link href="/download" className="flex-1">
-                  <Button
-                    size="xl"
-                    variant="outline"
-                    className="border-2 border-white text-white hover:bg-white hover:text-primary-700 font-semibold w-full"
-                    fullWidth
-                  >
-                    Download Apps
-                  </Button>
-                </Link>
-              </div>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 flex flex-wrap">
+            <div className="w-full md:w-1/2">
+              {/* Please add a mobile app screen shot here*/}
             </div>
+            <div className="w-full md:w-1/2">
+              <div className="text-center">
+                <div className="mb-6">
+                  <span className="inline-block px-4 py-2 bg-white text-gray-900 dark:text-white bg-opacity-20 rounded-full font-medium mb-4 backdrop-blur-sm">
+                    🛡️ Advanced Fraud Protection
+                  </span>
+                </div>
+                <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+                  Stop Installment Fraud
+                  <span className="block text-green-200 mt-2">Before It Starts</span>
+                </h1>
+                <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-green-100 leading-relaxed">
+                  Advanced fraud detection system that tracks installment purchases across multiple businesses
+                  to prevent fraudulent chains and protect your revenue.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
+                  <Link href="/register" className="flex-1">
+                    <Button
+                      size="xl"
+                      variant="secondary"
+                      icon={<span>🚀</span>}
+                      className="shadow-lg hover:shadow-xl font-semibold w-full"
+                      fullWidth
+                    >
+                      Get Started Free
+                    </Button>
+                  </Link>
+                </div>
+              </div>  </div>
+
           </div>
         </section>
 

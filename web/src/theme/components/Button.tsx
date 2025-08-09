@@ -47,7 +47,7 @@ export const Button: React.FC<ButtonProps> = ({
             'hover:bg-gray-50 hover:text-black',
             'focus:ring-primary-500',
             'dark:from-gray-700 dark:to-gray-800',
-            'dark:text-gray-100 dark:hover:from-gray-600 dark:hover:to-gray-700',
+            'dark:text-primary-500 dark:hover:from-primary-500 dark:hover:to-primary-700',
         ].join(' '),
 
         outline: [
