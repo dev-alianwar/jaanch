@@ -42,12 +42,12 @@ export const Button: React.FC<ButtonProps> = ({
         ].join(' '),
 
         secondary: [
-            'bg-white',
-            'text-black shadow-md hover:shadow-lg border-2 border-gray-300',
-            'hover:bg-gray-50 hover:text-black',
-            'focus:ring-primary-500',
+            'bg-white border-2 border-gray-400',
+            'text-gray-900 shadow-md hover:shadow-lg',
+            'hover:bg-gray-50 hover:text-gray-900',
+            'focus:ring-primary-500 font-semibold',
             'dark:from-gray-700 dark:to-gray-800',
-            'dark:text-primary-500 dark:hover:from-primary-500 dark:hover:to-primary-700',
+            'dark:text-gray-100 dark:hover:from-gray-600 dark:hover:to-gray-700',
         ].join(' '),
 
         outline: [
