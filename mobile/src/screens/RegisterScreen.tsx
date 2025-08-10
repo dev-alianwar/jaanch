@@ -32,10 +32,13 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
 
+  // Debug log to check current role
+  console.log('Current role:', formData.role);
+
   const handleRegister = async () => {
     // Validation
-    if (!formData.email.trim() || !formData.password.trim() || 
-        !formData.firstName.trim() || !formData.lastName.trim()) {
+    if (!formData.email.trim() || !formData.password.trim() ||
+      !formData.firstName.trim() || !formData.lastName.trim()) {
       Alert.alert('Error', 'Please fill in all required fields');
       return;
     }
@@ -66,9 +69,37 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
         phone: formData.phone.trim() || undefined,
         role: formData.role,
       });
+      // Clear form on successful registration
+      setFormData({
+        email: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        phone: '',
+        role: 'customer',
+      });
     } catch (error) {
       const errorMessage = apiService.handleApiError(error);
-      Alert.alert('Registration Failed', errorMessage);
+      
+      // Show error and clear sensitive fields
+      Alert.alert(
+        'Registration Failed', 
+        errorMessage,
+        [
+          {
+            text: 'OK',
+            onPress: () => {
+              // Clear password fields on error for security
+              setFormData(prev => ({
+                ...prev,
+                password: '',
+                confirmPassword: ''
+              }));
+            }
+          }
+        ]
+      );
     } finally {
       setLoading(false);
     }
@@ -83,149 +114,160 @@ const RegisterScreen: React.FC<Props> = ({ navigation }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-    >
-      <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subtitle}>Join the fraud detection network</Text>
-        </View>
-
-        <View style={styles.formContainer}>
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Account Type *</Text>
-            <View style={styles.pickerContainer}>
-              <Picker
-                selectedValue={formData.role}
-                onValueChange={(value) => updateFormData('role', value)}
-                style={styles.picker}
-                enabled={!loading}
-              >
-                <Picker.Item label="Customer" value="customer" />
-                <Picker.Item label="Business Owner" value="business" />
-              </Picker>
-            </View>
+    <View style={styles.container}>
+      <KeyboardAvoidingView
+        style={styles.keyboardAvoidingView}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View style={styles.headerContainer}>
+            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.subtitle}>Join the fraud detection network</Text>
           </View>
 
-          <View style={styles.row}>
-            <View style={[styles.inputContainer, styles.halfWidth]}>
-              <Text style={styles.inputLabel}>First Name *</Text>
+          <View style={styles.formContainer}>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Account Type *</Text>
+              <View style={styles.pickerContainer}>
+                <Picker
+                  selectedValue={formData.role}
+                  onValueChange={(value) => {
+                    console.log('Picker value changed:', value);
+                    updateFormData('role', value);
+                  }}
+                  style={styles.picker}
+                  enabled={!loading}
+                  mode="dropdown"
+                >
+                  <Picker.Item label="Customer" value="customer" />
+                  <Picker.Item label="Business Owner" value="business" />
+                </Picker>
+              </View>
+            </View>
+
+            <View style={styles.row}>
+              <View style={[styles.inputContainer, styles.halfWidth]}>
+                <Text style={styles.inputLabel}>First Name *</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="First name"
+                  value={formData.firstName}
+                  onChangeText={(value) => updateFormData('firstName', value)}
+                  autoCapitalize="words"
+                  editable={!loading}
+                />
+              </View>
+
+              <View style={[styles.inputContainer, styles.halfWidth]}>
+                <Text style={styles.inputLabel}>Last Name *</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="Last name"
+                  value={formData.lastName}
+                  onChangeText={(value) => updateFormData('lastName', value)}
+                  autoCapitalize="words"
+                  editable={!loading}
+                />
+              </View>
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Email *</Text>
               <TextInput
                 style={styles.input}
-                placeholder="First name"
-                value={formData.firstName}
-                onChangeText={(value) => updateFormData('firstName', value)}
-                autoCapitalize="words"
+                placeholder="Enter your email"
+                value={formData.email}
+                onChangeText={(value) => updateFormData('email', value)}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                autoCorrect={false}
                 editable={!loading}
               />
             </View>
 
-            <View style={[styles.inputContainer, styles.halfWidth]}>
-              <Text style={styles.inputLabel}>Last Name *</Text>
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Phone</Text>
               <TextInput
                 style={styles.input}
-                placeholder="Last name"
-                value={formData.lastName}
-                onChangeText={(value) => updateFormData('lastName', value)}
-                autoCapitalize="words"
+                placeholder="Phone number (optional)"
+                value={formData.phone}
+                onChangeText={(value) => updateFormData('phone', value)}
+                keyboardType="phone-pad"
                 editable={!loading}
               />
             </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Password *</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter password (min 6 characters)"
+                value={formData.password}
+                onChangeText={(value) => updateFormData('password', value)}
+                secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
+                editable={!loading}
+              />
+            </View>
+
+            <View style={styles.inputContainer}>
+              <Text style={styles.inputLabel}>Confirm Password *</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChangeText={(value) => updateFormData('confirmPassword', value)}
+                secureTextEntry
+                autoCapitalize="none"
+                autoCorrect={false}
+                editable={!loading}
+              />
+            </View>
+
+            <TouchableOpacity
+              style={[styles.registerButton, loading && styles.disabledButton]}
+              onPress={handleRegister}
+              disabled={loading}
+            >
+              {loading ? (
+                <ActivityIndicator color="#fff" />
+              ) : (
+                <Text style={styles.registerButtonText}>Create Account</Text>
+              )}
+            </TouchableOpacity>
+
+            <View style={styles.divider}>
+              <View style={styles.dividerLine} />
+              <Text style={styles.dividerText}>or</Text>
+              <View style={styles.dividerLine} />
+            </View>
+
+            <TouchableOpacity
+              style={styles.loginButton}
+              onPress={navigateToLogin}
+              disabled={loading}
+            >
+              <Text style={styles.loginButtonText}>Already have an account? Sign In</Text>
+            </TouchableOpacity>
           </View>
 
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Email *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email"
-              value={formData.email}
-              onChangeText={(value) => updateFormData('email', value)}
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              editable={!loading}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Phone</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Phone number (optional)"
-              value={formData.phone}
-              onChangeText={(value) => updateFormData('phone', value)}
-              keyboardType="phone-pad"
-              editable={!loading}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Password *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Enter password (min 6 characters)"
-              value={formData.password}
-              onChangeText={(value) => updateFormData('password', value)}
-              secureTextEntry
-              autoCapitalize="none"
-              autoCorrect={false}
-              editable={!loading}
-            />
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Confirm Password *</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Confirm your password"
-              value={formData.confirmPassword}
-              onChangeText={(value) => updateFormData('confirmPassword', value)}
-              secureTextEntry
-              autoCapitalize="none"
-              autoCorrect={false}
-              editable={!loading}
-            />
-          </View>
-
-          <TouchableOpacity
-            style={[styles.registerButton, loading && styles.disabledButton]}
-            onPress={handleRegister}
-            disabled={loading}
-          >
-            {loading ? (
-              <ActivityIndicator color="#fff" />
-            ) : (
-              <Text style={styles.registerButtonText}>Create Account</Text>
-            )}
-          </TouchableOpacity>
-
-          <View style={styles.divider}>
-            <View style={styles.dividerLine} />
-            <Text style={styles.dividerText}>or</Text>
-            <View style={styles.dividerLine} />
-          </View>
-
-          <TouchableOpacity
-            style={styles.loginButton}
-            onPress={navigateToLogin}
-            disabled={loading}
-          >
-            <Text style={styles.loginButtonText}>Already have an account? Sign In</Text>
-          </TouchableOpacity>
-        </View>
-
-        {formData.role === 'business' && (
-          <View style={styles.noteContainer}>
-            <Text style={styles.noteTitle}>Business Account Note:</Text>
-            <Text style={styles.noteText}>
-              Business accounts require verification by administrators before you can start accepting installment requests.
-            </Text>
-          </View>
-        )}
-      </ScrollView>
-    </KeyboardAvoidingView>
+          {formData.role === 'business' && (
+            <View style={styles.noteContainer}>
+              <Text style={styles.noteTitle}>Business Account Note:</Text>
+              <Text style={styles.noteText}>
+                Business accounts require verification by administrators before you can start accepting installment requests.
+              </Text>
+            </View>
+          )}
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </View>
   );
 };
 
@@ -234,10 +276,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#f8f9fa',
   },
+  keyboardAvoidingView: {
+    flex: 1,
+  },
   scrollContainer: {
     flexGrow: 1,
     paddingHorizontal: 20,
     paddingVertical: 40,
+    paddingBottom: 60, // Extra padding at bottom for better scrolling
   },
   headerContainer: {
     alignItems: 'center',
@@ -297,9 +343,11 @@ const styles = StyleSheet.create({
     borderColor: '#ddd',
     borderRadius: 8,
     backgroundColor: '#f9f9f9',
+    overflow: 'hidden',
   },
   picker: {
     height: 50,
+    width: '100%',
   },
   registerButton: {
     backgroundColor: '#28a745',

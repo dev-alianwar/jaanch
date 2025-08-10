@@ -34,9 +34,21 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     try {
       setLoading(true);
       await login(email.toLowerCase().trim(), password);
+      // Clear fields on successful login
+      setEmail('');
+      setPassword('');
     } catch (error) {
       const errorMessage = apiService.handleApiError(error);
-      Alert.alert(i18n.t('auth.loginFailed'), errorMessage);
+      
+      Alert.alert(
+        i18n.t('auth.loginFailed'), 
+        errorMessage,
+        [
+          {
+            text: 'OK',
+          }
+        ]
+      );
     } finally {
       setLoading(false);
     }

@@ -3,9 +3,11 @@ import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Configure API base URL
-const API_BASE_URL = Platform.OS === 'web' 
-  ? 'http://localhost:8000' 
-  : 'http://10.0.2.2:8000'; // Android emulator, use your IP for iOS
+const API_BASE_URL = Platform.OS === 'ios' 
+  ? 'http://localhost:8000'  // iOS simulator can use localhost
+  : Platform.OS === 'android'
+  ? 'http://10.0.2.2:8000'   // Android emulator
+  : 'http://localhost:8000'; // Web/other platforms
 
 interface LoginResponse {
   user: {
@@ -36,9 +38,10 @@ class ApiService {
   private api: AxiosInstance;
 
   constructor() {
+    console.log('API Service initialized with base URL:', API_BASE_URL);
     this.api = axios.create({
       baseURL: API_BASE_URL,
-      timeout: 10000,
+      timeout: 30000, // Increased timeout to 30 seconds
       headers: {
         'Content-Type': 'application/json',
       },
@@ -223,7 +226,13 @@ class ApiService {
 
   // Error handling helper
   handleApiError(error: any): string {
-    if (error.response?.data?.error?.message) {
+    console.log('API Error:', error);
+    
+    if (error.code === 'ECONNABORTED' || error.message?.includes('timeout')) {
+      return 'Request timed out. Please check your connection and try again.';
+    } else if (error.code === 'NETWORK_ERROR' || error.message?.includes('Network Error')) {
+      return 'Network error. Please check your internet connection.';
+    } else if (error.response?.data?.error?.message) {
       return error.response.data.error.message;
     } else if (error.response?.data?.detail) {
       return error.response.data.detail;
