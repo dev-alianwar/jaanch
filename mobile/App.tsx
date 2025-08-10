@@ -9,7 +9,6 @@ import LoginScreen from './src/screens/LoginScreen';
 import RegisterScreen from './src/screens/RegisterScreen';
 import CustomerHomeScreen from './src/screens/CustomerHomeScreen';
 import BusinessHomeScreen from './src/screens/BusinessHomeScreen';
-import SuperAdminHomeScreen from './src/screens/SuperAdminHomeScreen';
 import LoadingScreen from './src/screens/LoadingScreen';
 
 // Import context
@@ -49,9 +48,6 @@ function AppNavigator() {
             )}
             {user.role === 'business' && (
               <Stack.Screen name="BusinessHome" component={BusinessHomeScreen} />
-            )}
-            {user.role === 'superadmin' && (
-              <Stack.Screen name="SuperAdminHome" component={SuperAdminHomeScreen} />
             )}
           </>
         ) : (

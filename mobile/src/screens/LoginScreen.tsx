@@ -115,7 +115,6 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles.demoContainer}>
           <Text style={styles.demoTitle}>Demo Accounts:</Text>
-          <Text style={styles.demoText}>Superadmin: admin@system.com / admin123</Text>
           <Text style={styles.demoText}>Business: business1@test.com / admin123</Text>
           <Text style={styles.demoText}>Customer: customer1@test.com / admin123</Text>
         </View>
