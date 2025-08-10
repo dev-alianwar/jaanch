@@ -8,7 +8,7 @@ const BusinessHomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Business Dashboard</Text>
-      <Text style={styles.welcome}>Welcome, {user?.firstName}!</Text>
+      <Text style={styles.welcome}>Welcome, {user?.first_name}!</Text>
 
       <View style={styles.menuContainer}>
         <TouchableOpacity style={styles.menuItem}>
