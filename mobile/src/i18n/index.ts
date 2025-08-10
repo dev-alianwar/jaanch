@@ -27,20 +27,25 @@ export const loadTranslationsFromAPI = async (locale: string) => {
     
     return translations;
   } catch (error) {
-    console.error(`Failed to load translations for ${locale}:`, error);
-    // Fallback to static translations
+    // Silently fail and use static translations
+    console.warn(`API translations not available for ${locale}, using static translations`);
     return null;
   }
 };
 
-// Initialize translations from API
+// Initialize translations from API (optional)
 export const initializeTranslations = async () => {
-  const currentLocale = i18n.locale;
-  await loadTranslationsFromAPI(currentLocale);
-  
-  // Also load the other locale for quick switching
-  const otherLocale = currentLocale === 'en' ? 'ur' : 'en';
-  await loadTranslationsFromAPI(otherLocale);
+  try {
+    const currentLocale = i18n.locale;
+    await loadTranslationsFromAPI(currentLocale);
+    
+    // Also load the other locale for quick switching
+    const otherLocale = currentLocale === 'en' ? 'ur' : 'en';
+    await loadTranslationsFromAPI(otherLocale);
+  } catch (error) {
+    // Silently fail and continue with static translations
+    console.warn('API translations not available, using static translations');
+  }
 };
 
 export default i18n;

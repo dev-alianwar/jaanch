@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 // Import screens
 import LoginScreen from './src/screens/LoginScreen';
@@ -24,16 +25,16 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 function AppNavigator() {
   const { user, loading } = useAuth();
-  const [translationsLoaded, setTranslationsLoaded] = useState(false);
 
   useEffect(() => {
-    // Initialize translations on app start
-    initializeTranslations().finally(() => {
-      setTranslationsLoaded(true);
+    // Initialize translations on app start (non-blocking)
+    initializeTranslations().catch(() => {
+      // Silently handle translation loading errors
+      console.warn('Translations could not be loaded from API, using static translations');
     });
   }, []);
 
-  if (loading || !translationsLoaded) {
+  if (loading) {
     return <LoadingScreen />;
   }
 
@@ -67,9 +68,11 @@ function AppNavigator() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <StatusBar barStyle="dark-content" />
-      <AppNavigator />
-    </AuthProvider>
+    <SafeAreaProvider>
+      <AuthProvider>
+        <StatusBar barStyle="dark-content" />
+        <AppNavigator />
+      </AuthProvider>
+    </SafeAreaProvider>
   );
 }
