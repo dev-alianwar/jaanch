@@ -17,11 +17,11 @@ def check_clean_structure():
     
     expected_root_files = {
         '.dockerignore', '.env', '.gitignore', 'Dockerfile', 'main.py',
-        'pytest.ini', 'requirements.txt'
+        'pytest.ini', 'requirements.txt', 'README.md'
     }
     
     expected_root_dirs = {
-        'app', 'database', 'tests', 'scripts', 'docs', '.pytest_cache'
+        'app', 'database', 'tests', 'scripts', '.pytest_cache'
     }
     
     # Check for unexpected files in root
@@ -58,8 +58,7 @@ def check_clean_structure():
         'tests/unit',
         'tests/integration',
         'tests/e2e',
-        'scripts',
-        'docs'
+        'scripts'
     ]
     
     missing_dirs = []
@@ -132,15 +131,14 @@ def check_clean_structure():
     else:
         print("❌ scripts directory missing")
     
-    # Check docs
+    # Check README
     print("\n📚 Checking documentation...")
     
-    docs_dir = backend_dir / 'docs'
-    if docs_dir.exists():
-        doc_files = list(docs_dir.glob('*.md'))
-        print(f"✅ docs directory ({len(doc_files)} documentation files)")
+    readme_file = backend_dir / 'README.md'
+    if readme_file.exists():
+        print("✅ README.md exists")
     else:
-        print("❌ docs directory missing")
+        print("❌ README.md missing")
     
     # Test imports
     print("\n🔗 Testing imports...")
