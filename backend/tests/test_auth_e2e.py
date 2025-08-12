@@ -1,11 +1,13 @@
 """
-End-to-end tests for authentication (login and register)
+Legacy E2E tests for authentication (login and register)
+This file is kept for backward compatibility but new tests should go in tests/e2e/
 """
 import pytest
 from fastapi import status
 import json
 from datetime import datetime, timedelta
 
+@pytest.mark.e2e
 class TestUserRegistration:
     """Test user registration functionality"""
     

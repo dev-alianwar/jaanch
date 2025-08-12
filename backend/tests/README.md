@@ -1,56 +1,60 @@
-# Authentication E2E Tests
+# Comprehensive Test Suite
 
-This directory contains comprehensive end-to-end tests for the authentication system of the Installment Fraud Detection System.
+This directory contains all tests for the Installment Fraud Detection System backend, organized by test type.
 
-## Test Structure
+## Directory Structure
 
-### Test Files
-- `test_auth_e2e.py` - Main authentication tests
-- `conftest.py` - Test configuration and fixtures
+```
+tests/
+├── __init__.py
+├── conftest.py                    # Shared test configuration and fixtures
+├── README.md                      # This file
+├── test_auth_e2e.py              # Legacy E2E tests (kept for compatibility)
+├── unit/                         # Unit tests - fast, isolated
+│   ├── __init__.py
+│   ├── test_security.py          # Security utilities tests
+│   ├── test_models.py            # Database model tests
+│   └── test_schemas.py           # Pydantic schema tests
+├── integration/                  # Integration tests - component interactions
+│   ├── __init__.py
+│   ├── test_auth_service.py      # Authentication service tests
+│   ├── test_auth_modular.py      # Modular structure auth tests
+│   └── test_database.py          # Database operation tests
+└── e2e/                         # End-to-end tests - full workflows
+    ├── __init__.py
+    └── test_auth_flow.py         # Complete authentication flows
+```
 
-### Test Classes
+## Test Types
 
-#### TestUserRegistration
-Tests user registration functionality:
-- ✅ Successful customer registration
-- ✅ Successful business user registration  
-- ✅ Duplicate email handling
-- ✅ Invalid email format validation
-- ✅ Password length validation
-- ✅ Required field validation
-- ✅ Role validation
+### Unit Tests (`tests/unit/`)
+Fast, isolated tests that test individual components:
+- **Security utilities**: Password hashing, JWT tokens
+- **Database models**: Model creation, validation, relationships
+- **Pydantic schemas**: Input validation, serialization
 
-#### TestUserLogin
-Tests user login functionality:
-- ✅ Successful login
-- ✅ Non-existent user handling
-- ✅ Wrong password handling
-- ✅ Inactive user handling
-- ✅ Input validation
+### Integration Tests (`tests/integration/`)
+Tests that verify component interactions:
+- **Authentication service**: Business logic with database
+- **Database operations**: CRUD operations, constraints
+- **API endpoints**: Route handlers with dependencies
 
-#### TestTokenRefresh
-Tests JWT token refresh:
-- ✅ Successful token refresh
-- ✅ Invalid token handling
-- ✅ Expired token handling
+### End-to-End Tests (`tests/e2e/`)
+Complete workflow tests that simulate real user interactions:
+- **Authentication flows**: Registration → Login → Protected access
+- **Token management**: Refresh, logout workflows
+- **Error scenarios**: Invalid credentials, duplicate registration
 
-#### TestAuthenticationFlow
-Tests complete authentication workflows:
-- ✅ Register → Login flow
-- ✅ Login → Access protected endpoint
-- ✅ Login → Logout flow
+## Test Categories (Markers)
 
-#### TestAuthenticationSecurity
-Tests security aspects:
-- ✅ Password not returned in responses
-- ✅ Email case sensitivity
-- ✅ SQL injection protection
-- ✅ XSS protection
+Tests are marked with pytest markers for easy filtering:
 
-#### TestRateLimiting
-Tests rate limiting functionality:
-- ✅ Login attempt rate limiting
-- ✅ Registration rate limiting
+- `@pytest.mark.unit` - Unit tests
+- `@pytest.mark.integration` - Integration tests  
+- `@pytest.mark.e2e` - End-to-end tests
+- `@pytest.mark.auth` - Authentication related tests
+- `@pytest.mark.database` - Database related tests
+- `@pytest.mark.slow` - Slow running tests
 
 ## Running Tests
 
@@ -185,3 +189,178 @@ Run tests with verbose output:
 ```bash
 pytest tests/test_auth_e2e.py -v -s --tb=long
 ```
+## Run
+ning Tests
+
+### Install Dependencies
+```bash
+pip install -r requirements-test.txt
+```
+
+### Run All Tests
+```bash
+# Run comprehensive test suite
+python3 run_all_tests.py
+
+# Or use pytest directly
+python3 -m pytest tests/ -v
+```
+
+### Run Specific Test Types
+```bash
+# Unit tests only (fast)
+python3 -m pytest tests/unit/ -v
+python3 run_all_tests.py --type unit
+
+# Integration tests only
+python3 -m pytest tests/integration/ -v
+python3 run_all_tests.py --type integration
+
+# E2E tests only
+python3 -m pytest tests/e2e/ -v
+python3 run_all_tests.py --type e2e
+```
+
+### Run Tests by Category
+```bash
+# Authentication tests only
+python3 -m pytest -m auth -v
+
+# Database tests only
+python3 -m pytest -m database -v
+
+# Skip slow tests
+python3 -m pytest -m "not slow" -v
+python3 run_all_tests.py --fast
+```
+
+### Run with Coverage
+```bash
+# Coverage report
+python3 -m pytest --cov=app --cov-report=html
+python3 run_all_tests.py --coverage
+
+# View coverage report
+open htmlcov/index.html
+```
+
+## Test Configuration
+
+### Environment Variables
+Tests use these environment variables (with defaults):
+```bash
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/installment_fraud_db
+JWT_SECRET=test-secret-key-for-testing
+DEBUG=true
+LOG_LEVEL=ERROR
+```
+
+### Test Database
+- Uses the same PostgreSQL database as development
+- Automatically cleans up test data after each test
+- Test users have emails ending with `@example.com`
+
+### Fixtures Available
+- `client` - FastAPI test client
+- `db_session` - Database session
+- `test_user_data` - Sample user data
+- `existing_user` - Pre-created user in database
+- `auth_headers` - Authentication headers
+- `e2e_session` - Requests session for E2E tests
+
+## Writing New Tests
+
+### Unit Test Example
+```python
+import pytest
+
+@pytest.mark.unit
+class TestMyComponent:
+    def test_my_function(self):
+        # Test individual function
+        result = my_function("input")
+        assert result == "expected"
+```
+
+### Integration Test Example
+```python
+import pytest
+
+@pytest.mark.integration
+class TestMyService:
+    def test_service_with_database(self, db_session):
+        # Test service with database
+        service = MyService(db_session)
+        result = service.create_item(data)
+        assert result.id is not None
+```
+
+### E2E Test Example
+```python
+import pytest
+
+@pytest.mark.e2e
+class TestMyWorkflow:
+    def test_complete_workflow(self, server_url, e2e_session):
+        # Test complete user workflow
+        response = e2e_session.post(f"{server_url}/api/endpoint")
+        assert response.status_code == 200
+```
+
+## Test Data Management
+
+### Cleanup Strategy
+- Each test gets a fresh database session
+- Test data is automatically cleaned up after each test
+- Uses email pattern `*@example.com` for easy identification
+
+### Test User Creation
+```python
+def test_with_user(self, db_session):
+    user = User(email="test@example.com", ...)
+    db_session.add(user)
+    db_session.commit()
+    # Test will automatically clean up
+```
+
+## Continuous Integration
+
+Tests are designed for CI/CD:
+- Fast execution (unit tests < 5s, integration < 30s)
+- Reliable cleanup
+- Clear pass/fail indicators
+- Detailed error reporting
+
+## Troubleshooting
+
+### Common Issues
+1. **Database connection**: Ensure PostgreSQL is running
+2. **Import errors**: Check Python path and dependencies
+3. **Test isolation**: Each test should be independent
+
+### Debug Commands
+```bash
+# Verbose output with full traceback
+python3 -m pytest tests/ -v -s --tb=long
+
+# Run single test
+python3 -m pytest tests/unit/test_security.py::TestSecurityService::test_password_hashing -v
+
+# Debug with pdb
+python3 -m pytest tests/ --pdb
+```
+
+### Performance
+```bash
+# Show slowest tests
+python3 -m pytest tests/ --durations=10
+
+# Profile test execution
+python3 -m pytest tests/ --profile
+```
+
+This organized structure makes it easy to:
+- Find the right type of test to write
+- Run specific test categories
+- Maintain test isolation
+- Scale the test suite as the application grows
