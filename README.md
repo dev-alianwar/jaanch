@@ -2,7 +2,50 @@
 
 A comprehensive system to track installment purchases across multiple businesses and detect fraudulent chains where customers obtain products on installment, sell them for cash, and repeat the cycle.
 
-## Features
+# Installment Fraud Detection System - Complete Documentation
+
+## Table of Contents
+1. [System Overview](#system-overview)
+2. [Architecture](#architecture)
+3. [Backend Structure](#backend-structure)
+4. [Database Design](#database-design)
+5. [API Structure](#api-structure)
+6. [Testing Strategy](#testing-strategy)
+7. [Requirements](#requirements)
+8. [Quick Start Guide](#quick-start-guide)
+
+## System Overview
+
+The Installment Fraud Detection System is a comprehensive platform that tracks installment purchases across multiple businesses to detect and prevent fraudulent chains. The system uses a multi-tenant architecture with role-based access control, real-time fraud detection algorithms, and cross-business data sharing capabilities.
+
+### Key Features
+- **Multi-platform Access**: Pure React Native mobile app, Next.js web platform, and FastAPI backend
+- **Role-based Access Control**: Superadmin, business, and customer roles
+- **Cross-business Fraud Detection**: Track installment chains across multiple businesses
+- **Real-time Analytics**: Comprehensive reporting and fraud pattern detection
+- **Secure Architecture**: JWT authentication, encrypted data, audit trails
+
+## Architecture
+
+### System Components
+```
+┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
+│  Mobile App     │    │  Web Platform   │    │  Backend API    │
+│  (React Native)│◄──►│  (Next.js)      │◄──►│  (FastAPI)      │
+└─────────────────┘    └─────────────────┘    └─────────────────┘
+                                                        │
+                                               ┌─────────────────┐
+                                               │  Database       │
+                                               │  (PostgreSQL)   │
+                                               └─────────────────┘
+```
+
+### Technology Stack
+- **Backend**: FastAPI (Python), PostgreSQL, Redis
+- **Web**: Next.js (TypeScript), Tailwind CSS
+- **Mobile**: Pure React Native (TypeScript)
+- **Infrastructure**: Docker, Docker Compose
+
 
 ### Core Functionality
 - **Multi-role authentication** (superadmin, business, customer)
