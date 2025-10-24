@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/contexts/AuthContext';
-import { Button } from '@/theme/components';
 import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
 
 interface TransparentHeaderClientProps {
@@ -26,37 +25,40 @@ export default function TransparentHeaderClient({ variant, locale, translations 
       <LanguageSwitcher />
       {user ? (
         <div className="flex items-center space-x-4">
-          <span className={`text-sm ${textColor}`}>
+          <span className={`text-sm font-medium ${textColor}`}>
             Welcome, {user.firstName}
           </span>
-          <Button 
-            variant="outline" 
-            size="sm" 
+          <button 
             onClick={logout}
-            className={variant === 'dark' ? 'border-white text-white hover:bg-white hover:text-gray-900' : ''}
+            className={`px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 ${
+              variant === 'dark' 
+                ? 'border-2 border-white text-white hover:bg-white hover:text-primary-700' 
+                : 'border-2 border-primary-700 text-primary-700 hover:bg-primary-700 hover:text-white'
+            }`}
           >
             {translations.logout}
-          </Button>
+          </button>
         </div>
       ) : (
         <div className="flex items-center space-x-3">
           <Link href="/login">
-            <Button 
-              variant="ghost" 
-              size="sm"
-              className={variant === 'dark' ? 'text-white hover:bg-white hover:bg-opacity-20' : ''}
+            <button 
+              className="px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200 hover:bg-white hover:bg-opacity-20"
+              style={{ color: variant === 'dark' ? '#ffffff' : '#374151' }}
             >
               {translations.login}
-            </Button>
+            </button>
           </Link>
           <Link href="/register">
-            <Button 
-              size="sm"
-              variant={variant === 'dark' ? 'secondary' : 'primary'}
-              className="font-semibold"
+            <button 
+              className="px-4 py-2 text-sm font-bold rounded-lg shadow-lg transition-all duration-200"
+              style={{
+                backgroundColor: variant === 'dark' ? '#ffffff' : '#008529',
+                color: variant === 'dark' ? '#006b1f' : '#ffffff'
+              }}
             >
               {translations.register}
-            </Button>
+            </button>
           </Link>
         </div>
       )}

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Button } from '@/theme/components';
 import { Shield, Users, TrendingUp, AlertTriangle, CheckCircle, Smartphone } from 'lucide-react';
 import TransparentHeader from '@/components/layout/TransparentHeader';
 import { getLocale } from '@/lib/getLocale';
@@ -34,7 +33,7 @@ export default async function Home() {
             <div className="w-full md:w-1/2">
               <div className="text-center">
                 <div className="mb-6">
-                  <span className="inline-block px-4 py-2 bg-white text-gray-900 dark:text-white bg-opacity-20 rounded-full font-medium mb-4 backdrop-blur-sm">
+                  <span className="inline-block px-4 py-2 bg-white text-primary-700 bg-opacity-90 rounded-full font-semibold mb-4 shadow-lg">
                     🛡️ Advanced Fraud Protection
                   </span>
                 </div>
@@ -48,15 +47,10 @@ export default async function Home() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
                   <Link href="/register" className="flex-1">
-                    <Button
-                      size="xl"
-                      variant="secondary"
-                      icon={<span>🚀</span>}
-                      className="shadow-lg hover:shadow-xl font-semibold w-full"
-                      fullWidth
-                    >
-                      Get Started Free
-                    </Button>
+                    <button className="w-full px-8 py-4 text-xl font-bold rounded-lg shadow-xl hover:shadow-2xl transition-all duration-200 flex items-center justify-center gap-3" style={{ backgroundColor: '#ffffff', color: '#006b1f' }}>
+                      <span>🚀</span>
+                      <span>Get Started Free</span>
+                    </button>
                   </Link>
                 </div>
               </div>  </div>
@@ -199,22 +193,14 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center max-w-md mx-auto">
               <Link href="/register" className="flex-1">
-                <Button
-                  size="xl"
-                  variant="secondary"
-                  className="font-semibold shadow-xl w-full"
-                >
+                <button className="w-full px-8 py-4 text-xl font-bold rounded-lg shadow-xl hover:shadow-2xl transition-all duration-200" style={{ backgroundColor: '#ffffff', color: '#006b1f' }}>
                   Start Free Trial
-                </Button>
+                </button>
               </Link>
               <Link href="/contact" className="flex-1">
-                <Button
-                  size="xl"
-                  variant="outline"
-                  className="border-2 border-white text-white hover:bg-white hover:text-primary-700 font-semibold w-full"
-                >
+                <button className="w-full px-8 py-4 text-xl font-bold rounded-lg shadow-xl border-2 transition-all duration-200 hover:bg-white" style={{ backgroundColor: 'transparent', borderColor: '#ffffff', color: '#ffffff' }}>
                   Contact Sales
-                </Button>
+                </button>
               </Link>
             </div>
           </div>
