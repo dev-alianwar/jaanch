@@ -1,4 +1,7 @@
 {
+  "app": {
+    "name": "InstallmentGuard"
+  },
   "common": {
     "loading": "لوڈ ہو رہا ہے...",
     "submit": "جمع کریں",

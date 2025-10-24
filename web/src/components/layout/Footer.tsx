@@ -1,58 +1,68 @@
 import React from 'react';
 import Link from 'next/link';
+import { getTranslations, createTranslator } from '@/lib/getTranslations';
+import type { Locale } from '@/lib/locale';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  locale: Locale;
+}
+
+export default async function Footer({ locale }: FooterProps) {
+  const messages = await getTranslations(locale);
+  const t = createTranslator(messages);
+  
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || t('app.name');
+
   return (
     <footer className="bg-gray-50 border-t">
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">
-              InstallmentGuard
+              {appName}
             </h3>
             <p className="text-gray-600 mb-4">
-              Advanced fraud detection system for installment purchases across multiple businesses. 
-              Protect your business from fraudulent chains and make informed credit decisions.
+              {t('footer.description')}
             </p>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">Product</h4>
+            <h4 className="text-sm font-semibold text-gray-900 mb-4">{t('footer.product')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/features" className="text-gray-600 hover:text-gray-900">
-                  Features
+                  {t('navigation.features')}
                 </Link>
               </li>
               <li>
                 <Link href="/download" className="text-gray-600 hover:text-gray-900">
-                  Download Apps
+                  {t('navigation.download')}
                 </Link>
               </li>
               <li>
                 <Link href="/pricing" className="text-gray-600 hover:text-gray-900">
-                  Pricing
+                  {t('footer.pricing')}
                 </Link>
               </li>
             </ul>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-gray-900 mb-4">Support</h4>
+            <h4 className="text-sm font-semibold text-gray-900 mb-4">{t('footer.support')}</h4>
             <ul className="space-y-2">
               <li>
                 <Link href="/contact" className="text-gray-600 hover:text-gray-900">
-                  Contact Us
+                  {t('footer.contactUs')}
                 </Link>
               </li>
               <li>
                 <Link href="/help" className="text-gray-600 hover:text-gray-900">
-                  Help Center
+                  {t('footer.helpCenter')}
                 </Link>
               </li>
               <li>
                 <Link href="/privacy" className="text-gray-600 hover:text-gray-900">
-                  Privacy Policy
+                  {t('footer.privacyPolicy')}
                 </Link>
               </li>
             </ul>
@@ -61,12 +71,10 @@ const Footer: React.FC = () => {
         
         <div className="mt-8 pt-8 border-t border-gray-200">
           <p className="text-center text-gray-500 text-sm">
-            © 2024 InstallmentGuard. All rights reserved.
+            {t('footer.copyright')}
           </p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

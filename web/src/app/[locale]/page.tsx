@@ -12,7 +12,7 @@ export default async function Home({
   return (
     <>
       {/* Transparent Header overlaying the hero section */}
-      <TransparentHeader variant="dark" />
+      <TransparentHeader variant="dark" locale={locale} />
 
       <div className="bg-white -mt-16">
         {/* Hero Section */}

@@ -8,10 +8,16 @@ import { TranslationProvider } from "@/components/TranslationProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const appName = process.env.NEXT_PUBLIC_APP_NAME || "InstallmentGuard";
+
 export const metadata: Metadata = {
-  title: "InstallmentGuard - Fraud Detection for Installment Purchases",
+  title: `${appName} - Fraud Detection for Installment Purchases`,
   description: "Advanced fraud detection system for installment purchases across multiple businesses. Protect your business from fraudulent chains and make informed credit decisions.",
 };
+
+export function generateStaticParams() {
+  return [{ locale: 'en' }, { locale: 'ur' }];
+}
 
 export default async function RootLayout({
   children,
@@ -61,11 +67,11 @@ export default async function RootLayout({
         <TranslationProvider locale={validLocale} initialMessages={fallbackMessages}>
           <AuthProvider>
             <div className="min-h-screen flex flex-col">
-              <Header />
+              <Header locale={validLocale} />
               <main className="flex-1">
                 {children}
               </main>
-              <Footer />
+              <Footer locale={validLocale} />
             </div>
           </AuthProvider>
         </TranslationProvider>

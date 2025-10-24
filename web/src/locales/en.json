@@ -1,4 +1,7 @@
 {
+  "app": {
+    "name": "InstallmentGuard"
+  },
   "common": {
     "loading": "Loading...",
     "submit": "Submit",

@@ -1,17 +1,18 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
-import { useAuth } from '@/contexts/AuthContext';
-import Button from '@/components/ui/Button';
-import LanguageSwitcher from '@/components/ui/LanguageSwitcher';
-import { useTranslationFallback } from '@/components/TranslationProvider';
+import { getTranslations, createTranslator } from '@/lib/getTranslations';
+import type { Locale } from '@/lib/locale';
+import HeaderClient from './HeaderClient';
 
-const Header: React.FC = () => {
-  const { user, logout } = useAuth();
-  const { t } = useTranslationFallback();
+interface HeaderProps {
+  locale: Locale;
+}
 
-  console.log('Header rendering, user:', user, 'translations:', t('navigation.home'));
+export default async function Header({ locale }: HeaderProps) {
+  const messages = await getTranslations(locale);
+  const t = createTranslator(messages);
+  
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || t('app.name');
 
   return (
     <header className="bg-white shadow-sm border-b">
@@ -19,7 +20,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
             <Link href="/" className="text-xl font-bold text-gray-900">
-              InstallmentGuard
+              {appName}
             </Link>
           </div>
           
@@ -33,43 +34,17 @@ const Header: React.FC = () => {
             <Link href="/download" className="text-gray-500 hover:text-gray-900">
               {t('navigation.download')}
             </Link>
-            {user && (
-              <Link href="/app" className="text-gray-500 hover:text-gray-900">
-                {t('navigation.dashboard')}
-              </Link>
-            )}
           </nav>
           
-          <div className="flex items-center space-x-4">
-            <LanguageSwitcher />
-            {user ? (
-              <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">
-                  Welcome, {user.firstName}
-                </span>
-                <Button variant="outline" size="sm" onClick={logout}>
-                  {t('navigation.logout')}
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <Link href="/login">
-                  <Button variant="outline" size="sm">
-                    {t('navigation.login')}
-                  </Button>
-                </Link>
-                <Link href="/register">
-                  <Button size="sm">
-                    {t('navigation.register')}
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
+          <HeaderClient
+            translations={{
+              login: t('navigation.login'),
+              register: t('navigation.register'),
+              logout: t('navigation.logout'),
+            }}
+          />
         </div>
       </div>
     </header>
   );
-};
-
-export default Header;
+}

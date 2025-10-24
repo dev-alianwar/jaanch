@@ -1,19 +1,20 @@
 'use client';
 
 import React from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useTranslationFallback } from '@/components/TranslationProvider';
+import { LOCALE_COOKIE } from '@/lib/locale';
 
 const LanguageSwitcher: React.FC = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const { locale } = useTranslationFallback();
 
   const switchLanguage = (newLocale: string) => {
-    // Remove the current locale from the pathname
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '');
-    // Navigate to the new locale
-    router.push(`/${newLocale}${pathWithoutLocale}`);
+    // Set cookie
+    document.cookie = `${LOCALE_COOKIE}=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+    
+    // Refresh the page to apply new locale
+    router.refresh();
   };
 
   return (
