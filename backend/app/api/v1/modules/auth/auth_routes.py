@@ -4,12 +4,11 @@ Authentication API routes
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app.core.database import get_db
+from database import get_db, User
 from app.core.logging import get_logger
 from .auth_service import AuthService
 from app.schemas.auth import UserLogin, UserRegister, AuthResponse, TokenRefresh, UserResponse
 from app.api.dependencies import get_current_user
-from app.models.user import User
 
 logger = get_logger("auth_routes")
 router = APIRouter(prefix="/auth", tags=["Authentication"])

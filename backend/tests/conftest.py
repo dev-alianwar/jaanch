@@ -161,28 +161,13 @@ def test_admin_user_data() -> Dict[str, Any]:
 @pytest.fixture
 def existing_user(db_session):
     """Create an existing active user in the database"""
-    try:
-        from models import User, UserRole
-        from auth import AuthService
-        
-        user_data = {
-            "email": "existing@example.com",
-            "password_hash": AuthService.get_password_hash("existingpass123"),
-            "first_name": "Existing",
-            "last_name": "User",
-            "phone": "+1234567892",
-            "role": UserRole.CUSTOMER,
-            "is_active": True
-        }
-    except ImportError:
-        # Try new structure
-        from app.models.user import User, UserRole
-        from app.core.security import SecurityService
-        
-        user_data = {
-            "email": "existing@example.com",
-            "password_hash": SecurityService.get_password_hash("existingpass123"),
-            "first_name": "Existing",
+    from database import User, UserRole
+    from app.core.security import SecurityService
+    
+    user_data = {
+        "email": "existing@example.com",
+        "password_hash": SecurityService.get_password_hash("existingpass123"),
+        "first_name": "Existing",
             "last_name": "User",
             "phone": "+1234567892",
             "role": UserRole.CUSTOMER,

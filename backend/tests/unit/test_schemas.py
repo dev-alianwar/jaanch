@@ -36,12 +36,8 @@ class TestAuthSchemas:
     
     def test_user_register_schema(self):
         """Test UserRegister schema validation"""
-        try:
-            from app.schemas.auth import UserRegister
-            from app.models.user import UserRole
-        except ImportError:
-            from schemas import UserRegister
-            from models import UserRole
+        from app.schemas.auth import UserRegister
+        from database import UserRole
         
         # Valid data
         valid_data = {
@@ -80,12 +76,8 @@ class TestAuthSchemas:
     
     def test_user_response_schema(self):
         """Test UserResponse schema"""
-        try:
-            from app.schemas.auth import UserResponse
-            from app.models.user import UserRole
-        except ImportError:
-            from schemas import UserResponse
-            from models import UserRole
+        from app.schemas.auth import UserResponse
+        from database import UserRole
         
         import uuid
         from datetime import datetime
@@ -109,12 +101,8 @@ class TestAuthSchemas:
     
     def test_auth_response_schema(self):
         """Test AuthResponse schema"""
-        try:
-            from app.schemas.auth import AuthResponse, UserResponse
-            from app.models.user import UserRole
-        except ImportError:
-            from schemas import AuthResponse, UserResponse
-            from models import UserRole
+        from app.schemas.auth import AuthResponse, UserResponse
+        from database import UserRole
         
         import uuid
         from datetime import datetime

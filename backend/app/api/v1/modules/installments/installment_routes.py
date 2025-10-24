@@ -14,8 +14,7 @@ from app.api.dependencies import (
     get_current_user, get_current_customer, get_current_business,
     get_current_superadmin
 )
-from app.models.user import User, UserRole
-from database.models import Business, InstallmentRequest, RequestStatus
+from database import User, UserRole, Business, InstallmentRequest, RequestStatus
 from app.schemas.installment import (
     InstallmentRequestCreate, InstallmentRequestUpdate, InstallmentRequestResponse,
     RequestApproval, RequestRejection, PaginatedResponse, BusinessResponse

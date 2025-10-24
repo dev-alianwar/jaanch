@@ -12,17 +12,15 @@ class TestUserModel:
     
     def test_user_creation(self):
         """Test creating a user instance"""
-        try:
-            from app.models.user import User, UserRole
-        except ImportError:
-            from models import User, UserRole
+        from database import User, UserRole
         
         user = User(
             email="test@example.com",
             password_hash="hashed_password",
             first_name="Test",
             last_name="User",
-            role=UserRole.CUSTOMER
+            role=UserRole.CUSTOMER,
+            is_active=True
         )
         
         assert user.email == "test@example.com"
@@ -33,10 +31,7 @@ class TestUserModel:
     
     def test_user_roles(self):
         """Test user role enumeration"""
-        try:
-            from app.models.user import UserRole
-        except ImportError:
-            from models import UserRole
+        from database import UserRole
         
         # Test all role values
         assert UserRole.CUSTOMER.value == "customer"
@@ -49,10 +44,7 @@ class TestUserModel:
     
     def test_user_representation(self):
         """Test user string representation"""
-        try:
-            from app.models.user import User, UserRole
-        except ImportError:
-            from models import User, UserRole
+        from database import User, UserRole
         
         user = User(
             email="test@example.com",
@@ -73,10 +65,7 @@ class TestBaseModel:
     
     def test_base_model_fields(self):
         """Test base model has required fields"""
-        try:
-            from app.models.user import User, UserRole
-        except ImportError:
-            from models import User, UserRole
+        from database import User, UserRole
         
         user = User(
             email="test@example.com",
@@ -97,10 +86,7 @@ class TestBaseModel:
     
     def test_to_dict_method(self):
         """Test to_dict method if available"""
-        try:
-            from app.models.user import User, UserRole
-        except ImportError:
-            from models import User, UserRole
+        from database import User, UserRole
         
         user = User(
             email="test@example.com",

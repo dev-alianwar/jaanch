@@ -9,7 +9,7 @@ from fastapi import HTTPException, status
 from app.core.security import SecurityService
 from app.core.config import settings
 from app.core.logging import get_logger
-from app.models.user import User, UserRole
+from database import User, UserRole
 from app.schemas.auth import UserRegister, UserLogin, AuthResponse, UserResponse
 
 logger = get_logger("auth_service")

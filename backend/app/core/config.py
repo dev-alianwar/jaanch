@@ -14,6 +14,7 @@ class Settings(BaseSettings):
     APP_NAME: str = "Installment Fraud Detection System"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = False
+    ENVIRONMENT: str = "development"
     
     # Database
     DATABASE_URL: str

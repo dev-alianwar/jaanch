@@ -8,10 +8,8 @@ from typing import List, Optional
 import logging
 from datetime import datetime, timedelta
 
-from app.core.database import get_db
+from database import get_db, User, UserRole, Business, InstallmentPlan
 from app.api.dependencies import get_current_user, get_current_business, get_current_superadmin
-from app.models.user import User, UserRole
-from database.models import Business, InstallmentPlan
 from app.schemas.history import (
     CustomerInstallmentHistory, InstallmentPlanResponse, 
     PaginatedResponse, UserResponse
